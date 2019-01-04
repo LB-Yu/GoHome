@@ -1,0 +1,13 @@
+.graph {
+    width: 1050px;
+    height: 430px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 30px 0 black;
+}
+
+.chart {
+    width: 1030px;
+    height: 420px;
+    padding: 20px;
+}

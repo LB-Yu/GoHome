@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../libs/lib/ol-debug.js" type="text/javascript"></script>
+    <script src="../libs/lib/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="../libs/js/map_utils.js" type="text/javascript"></script>
+    <script src="../libs/lib/zondyClient.js" type="text/javascript"></script>
+    <link href="../libs/lib/ol.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div id="mapCon"></div>
+    <button onclick="queryVectorLayerByPnt()">查询</button>
+    <button onclick="stopqueryVectorLayerByPnt()">结束</button>
+</body>
+<script>
+    var zoom = 4;
+    var center = [110, 35];
+    var view = new ol.View({
+        //地图初始中心点
+        center: center,
+        //地图初始显示级别
+        zoom: zoom,
+        projection: new ol.proj.get('EPSG:4326')
+    });
+    var map = createMap("mapCon", view);
+
+    var draw;
+    /**
+     * 点击查询按钮触发
+     * */
+    function queryVectorLayerByPnt() {
+        //实例化一个矢量图层Vector作为绘制层
+        var source = new ol.source.Vector({ wrapX: false });
+        var vector = new ol.layer.Vector({
+            source: source,
+            style: new ol.style.Style({
+                //填充色
+                fill: new ol.style.Fill({
+                    color: 'rgba(255, 255, 255, 0.2)'
+                }),
+                //边线样式
+                stroke: new ol.style.Stroke({
+                    color: '#ffcc33',
+                    width: 2
+                })
+            })
+        });
+        //将绘制层添加到地图容器中
+        map.addLayer(vector);
+
+        //实例化交互绘制类对象并添加到地图容器中
+        draw = new ol.interaction.Draw({
+            type: 'Polygon',
+            //绘制层数据源
+            source: source
+        });
+        map.addInteraction(draw);
+        //点击查询的回调函数
+        draw.on('drawend', drawControlback);
+    }
+
+    /**
+     * 关闭查询
+     * */
+    function stopqueryVectorLayerByPnt() {
+        if (draw != null)
+        //移除交互绘制控件
+            map.removeInteraction(draw);
+    }
+
+    /**
+     * 点击查询的回调函数
+     * */
+    function drawControlback(feature) {
+        //初始化查询结构对象，设置查询结构包含几何信息
+        var queryStruct = new Zondy.Service.QueryFeatureStruct();
+        //是否包含几何图形信息
+        queryStruct.IncludeGeometry = true;
+        //是否包含属性信息
+        queryStruct.IncludeAttribute = true;
+        //是否包含图形显示参数
+        queryStruct.IncludeWebGraphic = false;
+        //创建一个用于查询的区
+        var geomObj = new Zondy.Object.Polygon();
+        geomObj.setByOL(feature.feature.values_.geometry);
+        //指定查询规则
+        var rule = new Zondy.Service.QueryFeatureRule({
+            //是否将要素的可见性计算在内
+            EnableDisplayCondition: false,
+            //是否完全包含
+            MustInside: false,
+            //是否仅比较要素的外包矩形
+            CompareRectOnly: false,
+            //是否相交
+            Intersect: true
+        });
+        //实例化查询参数对象
+        var queryParam = new Zondy.Service.QueryByLayerParameter("gdbp://MapGisLocal/示例数据/sfcls/missing_people_data_with_photo.txt", {
+            geometry: geomObj,
+            resultFormat: "json",
+            rule: rule,
+            struct: queryStruct
+        });
+        //设置查询分页号
+        //queryParam.pageIndex = 0;
+        //设置查询要素数目
+        //queryParam.recordNumber = 20;
+        //实例化地图文档查询服务对象
+        var queryService = new Zondy.Service.QueryLayerFeature(queryParam, {
+            ip: "127.0.0.1",
+            port: "6163"
+        });
+        //执行查询操作，querySuccess为查询回调函数
+        queryService.query(querySuccess, queryError);
+    }
+
+    /**
+     * 查询失败回调
+     * */
+    function queryError(e) {
+        window.alert("查询失败！");
+    }
+
+    /**
+     * 查询成功回调
+     * */
+    function querySuccess(result) {
+        console.log(result);
+        //初始化Zondy.Format.PolygonJSON类
+        var format = new Zondy.Format.PolygonJSON();
+        //将MapGIS要素JSON反序列化为ol.Feature类型数组
+        var features = format.read(result);
+        //实例化一个矢量图层drawLayerr用于高亮显示结果
+        var drawSource = new ol.source.Vector({
+            //是否在地图水平坐标轴上重复
+            wrapX: false
+        });
+        drawSource.addFeatures(features);
+        var drawLayer = new ol.layer.Vector({
+            source: drawSource,
+            style: new ol.style.Style({
+                //填充色
+                fill: new ol.style.Fill({
+                    color: 'rgba(255, 204, 51, 0.5)'
+                }),
+                //边线样式
+                stroke: new ol.style.Stroke({
+                    color: 'rgba(255,204, 51, 1)',
+                    width: 1
+                })
+            })
+        });
+
+        map.addLayer(drawLayer);
+        map.setView(new ol.View({
+            center: [110, -10],
+            zoom: 2,
+            projection: 'EPSG:4326'
+        }));
+    }
+</script>
+</html>

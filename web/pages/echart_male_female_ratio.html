@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:400px;width:600px "></div>
+<!-- ECharts单文件引入 -->
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts图表
+    var myChart = echarts.init(document.getElementById('main'));
+    var option = {
+        title : {
+            text: '近20年男女失踪人数',
+            subtext: '数据来自宝贝回家网'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['女','男']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            },
+            orient:'vertical'
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : ['1998年','1999年', '2000年',
+                    '2001年','2002年','2003年','2004年','2005年',
+                    '2006年','2007年','2008年','2009年','2010年',
+                    '2011年','2012年','2013年','2014年','2015年',
+                    '2016年','2017年'
+                    ]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} °C'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'女',
+                type:'line',
+                data:[506,469, 377, 325, 240, 257, 234, 216, 189, 190, 193, 184, 173, 158, 162, 172, 227, 217, 210, 521],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            },
+            {
+                name:'男',
+                type:'line',
+                data:[639,697, 568, 451, 362, 307, 373, 278, 284, 279, 233, 258, 228, 228, 218, 184, 218, 262, 260, 543],
+                markPoint : {
+                    data : [
+                        {type:'max', name:'最大值'},
+                        {type:'min', name:'最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name : '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>

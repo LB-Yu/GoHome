@@ -1,0 +1,214 @@
+html {
+	color: #696969;
+	background: #262626;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+*{
+	margin: 0;
+	padding: 0;
+}
+p{
+	font-size: 14px;
+}
+/* 要注意表单元素并不继承父级 font 的问题 */
+
+body, button, input, select, textarea {
+	font-family: "微软雅黑","Microsoft YaHei",Tahoma,Verdana;
+	font-size: 14px;
+	line-height:22px;
+	color: #696969;
+	outline: none;
+}
+input, select, textarea {
+	font-size: 100%;
+	padding-left: 10px;
+	outline: none;
+	_outline:none;
+}
+/* 去掉各Table cell 的边距并让其边重合 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* IE bug fixed: th 不继承 text-align*/
+th {
+	text-align: inherit;
+}
+/* 对齐是排版最重要的因素, 别让什么都居中 */
+caption, th {
+	text-align: left;
+}
+
+/* 去除默认边框 */
+fieldset, img {
+	border: 0;
+	outline: none;
+	-moz-outline:none;
+}
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+	display: block;
+}
+/* 去掉列表前的标识, li 会继承 */
+ol, ul, li {
+	list-style: none;
+}
+/* 一致的 del 样式 */
+del {
+	text-decoration: line-through;
+}
+/* 来自yahoo, 让标题都自定义, 适应多个系统应用 */
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: 500;
+}
+/* 统一上标和下标 */
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+/* 默认不显示下划线，保持页面简洁 */
+
+ins, a {
+	text-decoration: none;
+}
+/* 让链接在 hover 状态下显示下划线 */
+a {
+	color: #3f3f3f;
+	cursor: pointer;
+	outline: none;
+}
+a:hover {
+	text-decoration: none;
+	color: #333333;
+}
+ul li a{
+	color: #3f3f3f;
+}
+/* 清理浮动 */
+.clearFloat:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+.clearFloat {
+	zoom: 1; /* for IE6 IE7 */
+}
+/* 设置内联, 减少浮动带来的bug */
+.floatLeft {
+	float: left;
+}
+.floatRight {
+	float: right;
+}
+/* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+/* HTML5 媒体文件跟 img 保持一致 */
+audio, canvas, video {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+/* 去掉 firefox 下此元素的边框 */
+abbr, acronym {
+	border: 0;
+	font-variant: normal;
+}
+address, caption, cite, code, dfn, em, th, var {
+	font-style: normal;
+	font-weight: 500;
+}
+.none {
+    display: none;
+}
+/*框架css自带样式的重置*/
+.ui-page-theme-a a, html .ui-bar-a a, html .ui-body-a a, html body .ui-group-theme-a a {
+    color: #ccc;
+    font-weight:400;
+	text-shadow:none;
+}
+/*重置所有的问题阴影属性*/
+.ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper {
+    text-shadow:none;
+}
+/*设置ul的margin为0*/
+
+.ui-content .ui-listview-inset, .ui-panel-inner > .ui-listview-inset {
+    margin: 0;
+}
+.ui-shadow {
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+}
+
+/* top_slide_wrap */
+#cover{
+	width: 75%;
+	height: 550px;
+	position: absolute;
+	z-index: 999999999999999999999999 !important;
+	margin-left: 25%;
+}
+.top_slide_wrap{
+	padding-left: 270px;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	position: fixed;
+	z-index:1;
+	background: url("../image/welcome_bg_.gif");
+}
+.top_slide_wrap_ditu{
+	padding-top: 10px;
+	width: 30%;
+	float: left;
+	color: #ffffff;
+	position:absolute;
+	top: 160px;
+	left: 50px;
+	z-index: 10;
+	font-size: 27px;
+	text-align: center;
+	line-height: 50px;
+	font-weight: bold;
+}
+.top_slide_wrap_ditu b{
+	font-family: 'electronicFont';
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 40px;
+	margin-top: 20px;
+	text-shadow: 1px 1px rgba(197, 223, 248,0.8),
+
+	2px 2px rgba(197, 223, 248,0.8),
+
+	3px 3px rgba(197, 223, 248,0.8);
+}
+
+.logo {
+	position: absolute;
+	width: 60px;
+	height: 120px;
+}
+
+.people {
+	position: absolute;
+	width: 120px;
+	height: 120px;
+	margin-top: 380px;
+	margin-left: -250px;
+}

@@ -1,0 +1,234 @@
+body {
+    margin: 0;
+}
+
+#mapCon {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#mapCon .ol-zoom {
+    display: none;
+}
+
+#mapCon .ol-attribution {
+    display: none;
+}
+
+/*缩放按钮*/
+.zoomBtn {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+/*复原按钮*/
+.backBtn {
+    position: absolute;
+    left: 20px;
+    top: 100px;
+}
+
+.province {
+    width: 100px;
+    float: left;
+    margin-left: 5px;
+}
+
+.city {
+    width: 100px;
+    float: left;
+    margin-left: 5px;
+}
+
+.detail-address {
+    width: 150px;
+    float: left;
+    margin-left: 5px;
+}
+
+.address {
+    width: 365px;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 780px;
+}
+
+.radius-box {
+    position: fixed;
+    margin-left: 945px;
+    margin-top: 70px;
+    width: 200px;
+}
+
+.yes-btn {
+    margin-top: 10px;
+    float: right;
+}
+
+.legend {
+    width: 220px;
+    margin-left: 20px;
+    position: fixed;
+    bottom: 0;
+}
+
+.legend .row {
+    margin-top: 5px;
+}
+
+.legend p {
+    font-size: 16px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+
+    margin-left: 5px;
+}
+
+.one {
+    float: left;
+    width: 110px;
+    height: 30px;
+    background: red;
+    border-radius: 5px;
+}
+
+.two {
+    float: left;
+    width: 100px;
+    height: 30px;
+    background: #c80000;
+    border-radius: 5px;
+}
+
+.three {
+    float: left;
+    width: 90px;
+    height: 30px;
+    background: #960000;
+    border-radius: 5px;
+}
+
+.four {
+    float: left;
+    width: 80px;
+    height: 30px;
+    background: #640000;
+    border-radius: 5px;
+}
+
+.five {
+    float: left;
+    width: 70px;
+    height: 30px;
+    background: #320000;
+    border-radius: 5px;
+}
+
+#load-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: gray;
+    z-index: 9999;
+    opacity: 0.5;
+    display: none;
+}
+
+#preloader {
+    z-index: 99999999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 45%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #9370DB;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #BA55D3;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF00FF;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.result {
+    position: fixed;
+    width: 250px;
+    top: 30%;
+    left: 35%;
+    display: none;
+}
+
+.result p {
+    font-size: 16px;
+}
+
+.close-result-btn {
+    border: none;
+    margin-top: -65px;
+    margin-left: 190px;
+}
+
+.close-result-btn:hover {
+    color: red;
+}

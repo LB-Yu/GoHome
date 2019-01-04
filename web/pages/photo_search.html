@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>照片搜索</title>
+    <link href="../libs/lib/ol.css" rel="stylesheet" type="text/css"/>
+    <link href="../libs/lib/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../libs/css/reset.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../libs/css/photo_search.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../libs/css/cluster_popup.css">
+    <script src="../libs/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../libs/lib/ol-debug.js" type="text/javascript"></script>
+    <script src="../libs/js/photo_search.js" type="text/javascript"></script>
+    <script src="../libs/js/map_utils.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=8331d53c9b178f7354c52e29697c8a08"></script>
+</head>
+<body style="overflow-y: hidden">
+    <!-- 地图 -->
+    <div id="mapCon" onclick="clearDropBox()">
+        <!-- Popup -->
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+        </div>
+    </div>
+    <!-- 文件上传按钮组 -->
+    <div class="btn-group uploadBtnBox" role="group">
+        <input type="file" accept="image/*" id="fileInput" style="display: none" onchange="processFiles(this.files)">
+        <label for="fileInput" id="img_label" class="btn btn-default uploadBtn">上传照片
+        </label>
+        <button class="btn btn-primary cameraBtn" onclick="showDropBox()"><span class="glyphicon glyphicon-camera"></span></button>
+    </div>
+    <!-- 地图操作按钮组 -->
+    <!-- 缩放按钮 -->
+    <div class="btn-group-vertical btn-group-sm zoomBtn" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" onclick="zoomIn(map)">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        <button type="button" class="btn btn-default" onclick="zoomOut(map)">
+            <span class="glyphicon glyphicon-minus"></span>
+        </button>
+    </div>
+    <!-- 复原按钮 -->
+    <div class="btn-group-sm backBtn">
+        <button type="button" class="btn btn-default" aria-label="Left Align" onclick="restore(map, center, zoom)">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        </button>
+    </div>
+    <!-- 拖拽框 -->
+    <div id="dropBox"></div>
+    <!-- 进度框 -->
+    <div id="progress_box">
+        <div class="photo" id="progress_photo"></div>
+        <div class="loading"></div>
+        <div class="message">正在加载...</div>
+    </div>
+    <!-- 拖拽框上传图片,提示错误信息 -->
+    <div id="dropBox_fail">
+        <div class="photo" id="fail_photo"></div>
+        <div class="message">
+            <div class="text" id="failMessage">图像格式错误</div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default load-btn" onclick="showDropBox()">
+                <span class="glyphicon glyphicon-upload"></span>重新上传</button>
+        </div>
+    </div>
+    <!-- 人脸搜索成功 -->
+    <div id="dropBox_success">
+        <div class="photo" id="success_photo"></div>
+        <div class="message">
+            <div class="text" id="successMessage">人脸搜索完成！</div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default look-result-btn" onclick="showPhotoBox()">点击查看结果</button>
+        </div>
+    </div>
+    <!-- 照片展示 -->
+    <div id="photo_box" class="img-list">
+        <div class="search-result">
+            <div id="search-description">
+                上传照片与1人相似度超过80%,极可能为同一人。
+            </div>
+            <button id="addClueBtn" class="btn btn-default clueBtn" onclick="showOfferClueForm()">点击提供线索</button>
+        </div>
+        <ul class="clear" id="photo_list">
+            <li><a href=""><img src="../libs/image/missing_people_photo/28315.jpg" style="border: solid 2px red"/><span>PPT模板</span></a></li>
+            <li><a href=""><img src="../libs/image/2.jpg" style="border: solid 2px red"/><span>宠物</span></a></li>
+            <li><a href=""><img src="../libs/image/3.jpg" /><span>高清动漫</span></a></li>
+            <li><a href=""><img src="../libs/image/4.jpg" /><span>微距摄影</span></a></li>
+        </ul>
+        <button class="btn btn-default closePhotoBoxBtn" onclick="closePhotoShow()"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+    <!--提供线索表单-->
+    <div id="offer_clue_form" class="panel panel-primary">
+        <div class="panel-heading" style="border-radius:0;height: 45px;background: #1c86ee;font-size: 20px; text-align: center">
+            <p style="margin-top: -2px">线索人员描述</p>
+            <img style="margin-left: 370px;margin-top: -60px;width: 25px;height: 25px;cursor: pointer" src="../libs/image/pack_up.png" id="slidUp-clue-box">
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <!--身高框框-->
+                <div class="form-group">
+                    <p style="letter-spacing:33px" for="clue_height"class="clue_label">身高</p>
+                    <div>
+                        <input type="text" name="clue_height" class="form-control clue_input" id="clue_height" placeholder="线索人员身高" value="150cm左右">
+                    </div>
+                </div>
+                <!--性别选择框框-->
+                <div class="form-group">
+                    <p class="control-label "style="position:absolute;margin-left:20px;margin-top: -10px;letter-spacing:33px">性别</p>
+                    <div class="clue_sex_input">
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" id="sex_male" value="男" >男
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" id="sex_female" value="女"checked>女
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" id="un_known" value="无法确认">无法确认
+                        </label>
+                    </div>
+                </div>
+                <!--发现地点框框-->
+                <div class="form-group">
+                    <p for="clue_location"class="clue_label">发现地点</p>
+                    <div>
+                        <input type="text" name="clue_location" class="form-control clue_input" id="clue_location" placeholder="发现地点" value="中国地质大学（西区）">
+                    </div>
+                </div>
+                <!--发现时间框框-->
+                <div class="form-group">
+                    <p for="clue_find_date" class="clue_label">发现时间</p>
+                    <input type="date" class="form-control clue_input" id="clue_find_date" name="clue_find_date" value="2017-08-17">
+                </div>
+                <!--相关描述框框-->
+                <div class="form-group">
+                    <p for="clue_description" class="clue_label">相关描述</p>
+                    <textarea id="clue_description"name="clue_description" class="form-control clue_input" rows="5" placeholder="相关描述" >肤色黄色、小眼睛、小翘鼻、薄嘴唇，穿白色衣服</textarea>
+                </div>
+                <p style="position:absolute;margin-left: 5px">定位地图</p>
+                <!--显示定位地图-->
+                <div id="location_map">
+
+                </div>
+                <input type="text" name="lng" id="longitude"  style="display: none">
+                <input type="text" name="lat" id="latitude"  style="display: none">
+                <button type="button"id="clue_submit"class="btn btn-default" onclick="submitForm()">提交</button>
+                <button type="button"id="clue_reset"class="btn btn-default" onclick="reset()">清空</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

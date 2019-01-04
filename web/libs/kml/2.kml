@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <Document>
+        <name>missing_people_data</name>
+        <atom:author>
+            <atom:name>missing_people</atom:name>
+        </atom:author>
+        <Folder>
+            <name>missing_people</name>
+			<Placemark id=123>
+			<magnitude>5.9</magnitude>
+                <Point>
+                    <coordinates>113.134025635393,31.018524</coordinates>
+                </Point>
+            </Placemark>
+            <Placemark id=124>
+            <magnitude>5.9</magnitude>
+                <Point>
+                    <coordinates>104.900557798252,25.0951480559269</coordinates>
+                </Point>
+            </Placemark>
+</Folder>
+    </Document>
+</kml>

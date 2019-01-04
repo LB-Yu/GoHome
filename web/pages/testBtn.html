@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../libs/lib/jquery.toolbar.css" rel="stylesheet" type="text/css"/>
+    <link href="../libs/fonts/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="../libs/lib/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="../libs/lib/jquery.toolbar.js" type="text/javascript"></script>
+    <style type="text/css">
+        @font-face {font-family: 'iconfont';
+            src: url('../libs/fonts/1.0.1/iconfont.eot'); /* IE9*/
+            src: url('../libs/fonts/1.0.1/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('../libs/fonts/1.0.1/iconfont.woff') format('woff'), /* chrome、firefox */
+            url('../libs/fonts/1.0.1/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+            url('../libs/fonts/1.0.1/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+        }
+
+        .iconfont{
+            font-family:"iconfont" !important;
+            font-size:16px;
+            font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+            color: white;
+            display:inline-block;
+        }
+    </style>
+    </head>
+<body>
+<div style="margin-left: 400px" id="search" class="btn-toolbar"><i class="iconfont">&#xe626;</i></div>
+    <div id="user-options" class="toolbar-icons hidden">
+        <a style="cursor: pointer" onclick="show()"><i class="fa fa-dot-circle-o"></i></a>
+        <a style="cursor: pointer"><i class="iconfont">&#xe609;</i></a>
+        <a style="cursor: pointer"><i class="fa fa-circle-o"></i></a>
+        <a style="cursor: pointer"><i class="fa fa-square-o"></i></a>
+        <a style="cursor: pointer"><i class="iconfont">&#xe608;</i></a>
+    </div>
+</body>
+<script type="text/javascript">
+    $('#search').toolbar({
+        content: '#user-options',
+        position: 'bottom',
+        style: 'primary',
+        animation: 'grow'
+    });
+
+    function show() {
+        window.alert("show");
+    }
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../libs/lib/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../libs/lib/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../libs/css/internet_search.css" rel="stylesheet" type="text/css"/>
+    <script src="../libs/lib/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="../libs/lib/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../libs/js/internet_search.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="container-fluid wrapper">
+        <div class="row" >
+            <button type="button" class="btn btn-default close-button" onclick="closeSearch()">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+        <div class="row">
+            <div class="input-group" style="width: 80%;margin-left: 15%">
+                <input type="text" id="search_input" class="form-control search-input" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default search-button" type="button" onclick="SearchBing()">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="btn-group choose-buttons" role="group" >
+                <button type="button" class="btn btn-default choose" onclick="page()">网页</button>
+            </div>
+            <div class="line">
+                <div id="red-line-left"></div>
+                <div id="red-line-right"></div>
+            </div>
+        </div>
+        <div id="result-list">
+
+        </div>
+    </div>
+    <div class="loader" id="load">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <iframe id="result-iframe" frameborder="0" height="100%" width="100%" src=""></iframe>
+</body>
+</html>

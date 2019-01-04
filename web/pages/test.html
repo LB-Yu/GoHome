@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+    <title>统计图(echarts模式)</title>
+    <!--导入外部样式表-->
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../libs/lib/ol.css" rel="stylesheet" type="text/css" />
+    <!--必要的脚本引用-->
+    <script src="../libs/lib/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="../libs/lib/ol-debug.js" type="text/javascript"></script>
+    <script src="../libs/lib/zondyClient.js" type="text/javascript"></script>
+    <!--ECharts脚本库引用-->
+    <script src="../libs/lib/echarts-all.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var map;
+        var chartThemeDiv = "echartDiv";
+        //地图初始化函数
+        function init() {
+            //初始化地图容器
+            map = new ol.Map({
+                target: "mapCon",
+                view: new ol.View({
+                    center: [0, 0],
+                    zoom: 2,
+                    projection: "EPSG:4326"
+                }),
+                controls: [new ol.control.MousePosition(
+                    {
+                        target: document.getElementById('mouse-position')
+                    }
+                )]
+            });
+            //初始化地图文档图层对象
+            var vectorMapdoc = new Zondy.Map.Doc("MapGIS IGS VectorMapdocLayer", "WorldJWVector", {
+                //矢量地图文档地图服务器ip
+                ip: "develop.smaryun.com",
+                //矢量地图文档地图服务端口
+                port: "6163"
+            });
+            //将地图文档图层加载到地图中
+            map.addLayer(vectorMapdoc);
+            $("#mapCon").append('<div id="' + chartThemeDiv + '"></div>');
+            addPopup();
+        }
+
+        //标注坐标点数组
+        var TPBZMarkArr = [[97.48, 38.20],
+            [24.30, 50.56],
+            [22.5, 6.5],
+            [-56, -12],
+            [-102, 40],
+            [135, -25]];
+        var markLayerMaTM = null;
+        var height = 220;
+        var width = 120;
+
+        //添加标注
+        function addPopup() {
+            //循环给每一个图表创建并添加div，以及设置他们的位置
+            for (var i = 0; i < TPBZMarkArr.length; i++) {
+                //动态的创建一个id
+                var id = "chart" + i;
+                //创建用来承载图表的div，注意：这里div的大小直接决定图表的大小
+                var content = '<div id="' + id + '" style="position: absolute;width:120px;height:120px"></div>';
+                //将创建好的div添加到其父div中
+                $("#" + this.chartThemeDiv).append(content);
+                //取出每一个位置坐标
+                var lonlat = TPBZMarkArr[i];
+                //创建一个ol.Overlay的对象用来承载每一个div
+                var chart = new ol.Overlay({
+                    //设置位置
+                    position: lonlat,
+                    //设置居中显示
+                    positioning: 'center-center',
+                    offset: [-60, -60],
+                    stopEvent: false,
+                    //设置需要承载的div的id
+                    element: document.getElementById(id)
+                });
+                //将该对象添加到地图容器中
+                map.addOverlay(chart);
+                createTheme(id);
+            }
+        }
+        /***********************************利用echart插件创建统计图表*************************************/
+        function createTheme(chartID) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById(chartID));
+            // 指定图表的配置项和数据
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                series: [
+                    {
+                        name: '世界大洲',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data:  [
+                                { value: 4400, name: '亚洲' },
+                                { value: 3000, name: '非洲' },
+                                { value: 2400, name: '北美洲' },
+                                { value: 1800, name: '南美洲' },
+                                { value: 1000, name: '欧洲' },
+                                { value: 897, name: '大洋洲' }
+                            ]
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+    </script>
+</head>
+<body onload="init();">
+<!--地图显示-->
+<div id="mapCon" style="height: 95%;">
+    <div id="mouse-position" style="float: left; position: absolute; bottom: 5px; width: 350px; height: 20px; z-index: 2000;">
+    </div>
+</div>
+</body>
+</html>

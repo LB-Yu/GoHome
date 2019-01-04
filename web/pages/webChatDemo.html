@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>聊天</title>
+	<link rel="stylesheet" type="text/css" href="../libs/css/chat.css">
+	<!--[if IE]>
+		<script src="http://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	
+	<div id="chatbox">
+		<div id="friendslist">
+			<div id="topmenu">
+				<span class="friends"></span>
+				<span class="chats"></span>
+				<span class="history"></span>
+			</div>
+			
+			<div id="friends">
+				<div class="friend">
+					<img src="../libs/image/1_copy.jpg" />
+					<p>
+						<strong>user1</strong>
+						<span><br>联系电话:15271805247</span>
+					</p>
+					<div class="status available"></div>
+				</div>
+				
+				<div class="friend">
+					<img src="../libs/image/2_copy.jpg" />
+					<p>
+						<strong>user2</strong>
+						<span><br>marjoseph@gmail.com</span>
+					</p>
+					<div class="status away"></div>
+				</div>
+			</div>                
+			
+		</div>	
+		
+		<div id="chatview" class="p1">
+            <!-- 顶部 -->
+			<div id="profile">
+				<div id="close">
+					<div class="cy"></div>
+					<div class="cx"></div>
+				</div>
+				<p>Miro Badev</p>
+				<span>miro@badev@gmail.com</span>
+			</div>
+            <!-- 消息列表 -->
+			<div id="chat-messages">
+				<div class="message">
+					<img src="../libs/image/1_copy.jpg" />
+					<div class="bubble">
+						我是老王
+					</div>
+				</div>
+				
+				<div class="message right">
+					<img src="../libs/image/2_copy.jpg" />
+					<div class="bubble">
+						我知道你是老王
+					</div>
+				</div>
+				
+				<div class="message">
+					<img src="../libs/image/1_copy.jpg" />
+					<div class="bubble">
+						Yeah, hold on
+
+					</div>
+				</div>
+				
+				<div class="message right">
+					<img src="../libs/image/2_copy.jpg" />
+					<div class="bubble">
+						Can you share a link for the tutorial?
+
+					</div>
+				</div>
+				
+				<div class="message">
+					<img src="../libs/image/1_copy.jpg" />
+					<div class="bubble">
+						Yeah, hold on
+					</div>
+				</div>
+				
+			</div>
+			<!-- 底部消息发送框 -->
+			<div id="sendmessage">
+				<input type="text" id="message-input" value="Send message..." />
+				<button id="send">发送</button>
+			</div>
+		
+		</div>        
+	</div>
+	<button onclick="showChat()">聊天</button>
+	
+	<script src="../libs/lib/jquery-1.11.2.min.js"></script>
+	<script>
+
+        var currentFriend;
+
+        var friends = {
+            'user1': '',
+            'user2': ''
+        };
+
+        /**
+         * 获取单条发送来的信息html显示字符串
+         * */
+        function getMsgHTML(msg) {
+            return '<div class="message">' +
+                '<img src="../libs/image/1_copy.jpg" />'+
+                '<div class="bubble">'+
+                msg +
+                '</div>'+
+                '</div>';
+        }
+
+        /**
+         * 获取单条发送的出去的信息html显示字符串
+         * */
+        function getMsgRightHTML(msg) {
+            return '<div class="message right">'+
+                '<img src="../libs/image/2_copy.jpg" />'+
+                '<div class="bubble">'+
+                msg +
+                '</div>'+
+                '</div>';
+        }
+
+        /**
+         * 重置信息显示列表的内容
+         * */
+        function resetMsgList(html) {
+            document.getElementById("chat-messages").innerHTML = html;
+        }
+
+		function showChat() {
+			document.getElementById("chatbox").style.display = "block";
+			console.log(document.getElementById("friend1").innerHTML);
+        }
+
+        $('#send').click(function () {
+            var msgInput = document.getElementById("message-input");
+            var msg = msgInput.value;
+            msgInput.value = '';
+            friends[currentFriend] += getMsgRightHTML(msg);
+            resetMsgList(friends[currentFriend]);
+        });
+
+	$(document).ready(function () {
+	    // 聊天界面顶部背景
+	    var preloadbg = document.createElement('img');
+	    preloadbg.src = 'img/timeline1.png';
+	    // 联系人搜索区
+	    $('#searchfield').focus(function () {
+	        if ($(this).val() == 'Search contacts...') {
+	            $(this).val('');
+	        }
+	    });
+	    $('#searchfield').focusout(function () {
+	        if ($(this).val() == '') {
+	            $(this).val('Search contacts...');
+	        }
+	    });
+	    // 聊天界面消息发送区
+	    $('#sendmessage input').focus(function () {
+	        if ($(this).val() == 'Send message...') {
+	            $(this).val('');
+	        }
+	    });
+	    $('#sendmessage input').focusout(function () {
+	        if ($(this).val() == '') {
+	            $(this).val('Send message...');
+	        }
+	    });
+
+	    // 依次点击好友列表
+	    $('.friend').each(function () {
+	        $(this).click(function () {
+	            var childOffset = $(this).offset();
+	            var parentOffset = $(this).parent().parent().offset();
+	            var childTop = childOffset.top - parentOffset.top;
+	            var clone = $(this).find('img').eq(0).clone();
+	            var top = childTop + 12 + 'px';
+	            $(clone).css({ 'top': top }).addClass('floatingImg').appendTo('#chatbox');
+	            setTimeout(function () {
+	                $('#profile p').addClass('animate');
+	                $('#profile').addClass('animate');
+	            }, 100);
+	            setTimeout(function () {
+	                $('#chat-messages').addClass('animate');
+	                $('.cx, .cy').addClass('s1');
+	                setTimeout(function () {
+	                    $('.cx, .cy').addClass('s2');
+	                }, 100);
+	                setTimeout(function () {
+	                    $('.cx, .cy').addClass('s3');
+	                }, 200);
+	            }, 150);
+	            $('.floatingImg').animate({
+	                'width': '68px',
+	                'left': '108px',
+	                'top': '20px'
+	            }, 200);
+	            var name = $(this).find('p strong').html();
+	            var email = $(this).find('p span').html();
+	            $('#profile p').html(name);
+	            $('#profile span').html(email);
+	            $('.message').not('.right').find('img').attr('src', $(clone).attr('src'));
+	            $('#friendslist').fadeOut();
+	            $('#chatview').fadeIn();
+	            $('#close').unbind('click').click(function () {
+	                $('#chat-messages, #profile, #profile p').removeClass('animate');
+	                $('.cx, .cy').removeClass('s1 s2 s3');
+	                $('.floatingImg').animate({
+	                    'width': '40px',
+	                    'top': top,
+	                    'left': '12px'
+	                }, 200, function () {
+	                    $('.floatingImg').remove();
+	                });
+	                setTimeout(function () {
+	                    $('#chatview').fadeOut();
+	                    $('#friendslist').fadeIn();
+	                }, 50);
+	            });
+	            console.log(name);
+	            console.log(friends[name]);
+	            currentFriend = name;
+	            $('#chat-messages').html(friends[name]);
+	        });
+	    });
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../libs/lib/shCoreDefault.css" rel="stylesheet" type="text/css"/>
+    <script src="../libs/lib/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <script src="../libs/lib/shCore.js" type="text/javascript"></script>
+    <script src="../libs/lib/makeSy.js" type="text/javascript"></script>
+    <style>
+        #SysMsg-box {
+            width: 84%;
+            height: 90%;
+            position: absolute;
+            border-radius: 10px;
+            background: #d8c3ff;
+            display: none;
+        }
+
+        .SysMsg-content {
+            margin-left: 0.9%;
+            margin-top: 4%;
+        }
+
+        .SysMsg-title {
+            font-size: 18px;
+            font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+            color: white;
+            margin-left: 45%;
+            margin-top: 1%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="SysMsg-box">
+        <div class="SysMsg-title">关注动态</div>
+        <iframe class="SysMsg-content" frameborder="0" height="90%" width="98%" src="message_list.html"></iframe>
+    </div>
+    <button class="SysMsgBtn">Iframe窗</button>
+</body>
+<script type="text/javascript">
+    var str = "{\"extra\":\"clue\",\"message\":\"[{\"clueID\":1,\"clueState\":2,\"confidence\":0.8,\"description\":\"帅\",\"findDate\":1501776000000,\"findPlace\":\"地大\",\"height\":\"150cm\",\"missingID\":3173,\"sex\":\"男\",\"uploadDate\":1501776000000,\"userName\":\"admin\"},{\"clueID\":1,\"clueState\":2,\"confidence\":0.8,\"description\":\"帅\",\"findDate\":1501776000000,\"findPlace\":\"地大\",\"height\":\"150cm\",\"missingID\":3183,\"sex\":\"男\",\"uploadDate\":1501776000000,\"userName\":\"admin\"}]","to":"admin"}";
+    var obj = JSON.parse(str);
+    console.log(obj[1].description);
+</script>
+</html>

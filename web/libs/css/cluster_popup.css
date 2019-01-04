@@ -1,0 +1,121 @@
+.ol-popup {
+    width: 300px;
+    height: 400px;
+    float: left;
+    position: absolute;
+    background-color: white;
+    -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 45px;
+    left: -50px;
+    display: none;
+}
+
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+
+.ol-popup:before {
+    cursor: pointer;
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+
+.ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+}
+
+.ol-popup-closer:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.ol-popup-closer:after {
+    content: "✖";
+    position: absolute;
+    z-index: 999999999999;
+    /*margin-right: 40px;*/
+    margin-left: -40px;
+    margin-top: 10px;
+    color: white;
+}
+.ol-popup-pageTurning{
+
+}
+.pop-text{
+    color: white;
+    font-size: 13px;
+}
+.pop-upcontainer{
+    background: url("../image/popupBackground.jpg")repeat-x;
+    background-size: 100% auto; /*宽高自动*/
+    border: 1px solid #677173;
+    background-origin: padding-box;
+    width: 280px;
+    height: 380px;
+    margin-top: -5px;
+    margin-left: -5px;
+    overflow: scroll;
+    position: absolute;
+}
+#pop-img{
+    width: 150px;
+    height: 200px;
+}
+#pop-img img{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #677173;
+}
+#pageTuringImg{
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+#pageTurnBack{
+    width: 15px;
+    height: 15px;
+    float: left;
+}
+#pageTurnOver{
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-left: 2px;
+}
+#pageTurnOver:hover{
+    cursor: pointer;
+    color: #00ee00;
+}
+#pageTurnBack:hover{
+    cursor: pointer;
+    color: #00ee00;
+}
+#pageIndex{
+    float: left;
+    margin-left: 5px;
+    margin-top: -7px;
+}

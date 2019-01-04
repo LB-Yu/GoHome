@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>今日寻亲推荐</title>
+    <link rel="stylesheet" href="../libs/lib/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../libs/css/daily_recommendation.css" type="text/css">
+    <link rel="stylesheet" href="../libs/lib/ol.css" type="text/css"/>
+    <script src="../libs/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../libs/lib/ol-debug.js" type="text/javascript"></script>
+    <script src="../libs/lib/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../libs/js/map_utils.js" type="text/javascript"></script>
+    <script src="../libs/js/daily_recommendation.js" type="text/javascript"></script>
+</head>
+<body style="overflow-y: auto">
+<h1 style="padding-left: 20px;font-family: 'Adobe 仿宋 Std R'">今日寻亲</h1>
+<!-- 照片展示 -->
+<div class="wrap" id="wrap">
+    <main>
+        <ul id="photo_table" class="ul items">
+            <li id="-0">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-1">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-2">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-3">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-4">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-5">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-6">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-7">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+            <li id="-8">
+                <figure class="effect-winston">
+                    <img class="image" src="../libs/image/photo_loading.gif">
+                </figure>
+            </li>
+        </ul>
+    </main>
+</div>
+<!-- 详细信息框 -->
+<div id="detail-box">
+    <div id="mapCon"></div>
+    <div class="detail-message">
+        <ul class="list-group detail-list">
+            <li id="mType" class="list-group-item">寻亲类别：家寻宝贝</li>
+            <li id="mID" class="list-group-item">寻亲编号：281005</li>
+            <li id="mName" class="list-group-item">姓    名：莫莉兰</li>
+            <li id="mSex" class="list-group-item">性    别：女</li>
+            <li id="mBirthday" class="list-group-item">出生日期：2004年01月01日</li>
+            <li id="mHeight" class="list-group-item">失踪时身高：150厘米左右</li>
+            <li id="mMissingDate" class="list-group-item">失踪时间：2017年07月31日</li>
+            <li id="mMissingPlace" class="list-group-item">失踪地点：广东省,珠海市,南坑通大百货</li>
+            <li id="mDescription" class="list-group-item">寻亲者特征描述：女孩子莫莉兰、13岁，身高150厘米、邦着一束长头发、身穿白色短袖衫、衫胸前有个大图案是个布娃娃邦着两条小辨子的图案、背着一个黑色小圆形有个笑脸图案的小斜包、手上戴有一个黑色皮带的手表、脚上穿一双黑色的拖鞋、穿一条9分长的黑色运动裤子。
+            </li>
+            <li id="mExtraData" class="list-group-item">其他资料：</li>
+        </ul>
+    </div>
+        <button class="btn btn-default closeBtn" onclick="closeBox()">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+</div>
+<div id="grey-bg"></div>
+</body>
+</html>

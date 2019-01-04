@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../libs/lib/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <input type="text" id="queryInBing">
+    <button value="搜索" onclick="SearchBing()"></button>
+</body>
+<script type="text/javascript">
+    function SearchBing() {
+        var query = document.getElementById("queryInBing").value;
+        if(query ==""){
+            window.alert("请输入搜索内容！");
+            return;
+        }
+        query += "寻人";
+        console.log(query);
+        var params = {
+            // Request parameters
+            "q": query,
+            "count": "10",
+            "offset": "0",
+            "mkt": "zh",
+            "safesearch": "Moderate",
+        };
+        var url = "https://api.cognitive.microsoft.com/bing/v5.0/search?" + $.param(params);
+        console.log(url);
+        $.ajax({
+            url: url,
+            beforeSend: function(xhrObj){
+                // Request headers
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","3a83c862728f4966b61b6e8611fa326e");
+            },
+            type: "GET",
+            // Request body
+            data: "{body}"
+        })
+            .done(function(data) {
+                console.log("success");
+                console.log(data);
+                var webPages = data.webPages.value;
+                console.log(webPages);
+                var images = data.images.value;
+                console.log(images);
+
+            })
+            .fail(function() {
+                alert("error");
+            });
+    }
+</script>
+
+</html>

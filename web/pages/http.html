@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="findGet()">
+
+</body>
+<script>
+    //ajax请求对象
+    var xmlHttp;
+    /**
+     * GET方式调用请求按钮方法
+     */
+    function findGet() {
+        var url = "http://localhost:6163/igs/rest/mrfs/layer/query?f=json&gdbp=gdbp://MapGisLocal/GoHome/sfcls/missing_people_data_with_photo.txt&geometryType=&geometry=&where=寻亲编号='263324'&structs={IncludeAttribute:true,IncludeGeometry:false,IncludeWebGraphic:false}";
+//初始化ajax请求
+        createXMLHttpRequest();
+//ajax请求成功回调
+        xmlHttp.onreadystatechange = handleStateChange;
+//GET方式请求
+        xmlHttp.open("GET", url, true);
+//发送请求
+        xmlHttp.send(null);
+    }
+
+    /**
+     * ajax请求回调函数
+     */
+    function handleStateChange() {
+        if (xmlHttp.readyState == 4) {
+            //请求成功
+            if (xmlHttp.status == 200) {
+                //获取到ajax请求rest服务的结果
+                var data = xmlHttp.responseText;
+                //格式化显示json数据
+                /*Process(data, 1, "resultJson");*/
+                console.log(data);
+            }
+            else {
+                alert("调用失败，请检查设置的参数是否有误！");
+            }
+        }
+    }
+
+    /**
+     * 初始化ajax请求对象
+     */
+    function createXMLHttpRequest() {
+        //开始初始化XMLHttpRequest对象
+        if (window.XMLHttpRequest) {   //Mozilla 浏览器
+            xmlHttp = new XMLHttpRequest();
+            if (xmlHttp.overrideMimeType) {   //设置MiME类别
+                xmlHttp.overrideMimeType("text/xml");
+            }
+        }
+        else if (window.ActiveXObject) {   // IE浏览器
+            try {
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            catch (e) {
+                try {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (e) { }
+            }
+        }
+    }
+</script>
+</html>

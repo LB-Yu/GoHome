@@ -1,0 +1,388 @@
+body {
+    margin: 0;
+}
+
+#mapCon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+/*隐藏缩放按钮*/
+#mapCon .ol-zoom{
+    display: none;
+}
+/*隐藏右下角按钮*/
+#mapCon .ol-attribution {
+    display: none;
+}
+
+.uploadBtnBox {
+    position: absolute;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.uploadBtn {
+    width: 360px;
+    height: 45px;
+    border-radius: 0;
+    font-size: 20px;
+    vertical-align: middle;
+    position: absolute;
+}
+
+.cameraBtn {
+    width: 61px;
+    height: 45px;
+    border-radius: 0;
+    vertical-align: middle;
+    background: #1c86ee;
+    border: none;
+}
+
+.cameraBtn:hover {
+    background: #1874cd;
+}
+
+.cameraBtn:active {
+    background: #1874cd;
+}
+
+.cameraBtn:focus {
+    background: #1874cd;
+}
+
+
+.search-box {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    z-index: 99999;
+}
+
+/*搜索按钮*/
+#button {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    width: 300px;
+    border-radius: 5px;
+    color: white;
+    text-shadow: -1px -1px 1px rgba(0,0,0,0.8);
+    border: 5px solid transparent;
+    border-bottom-color: rgba(0,0,0,0.35);
+    background: hsla(260, 100%, 50%, 1);
+    cursor: pointer;
+
+    animation: pulse 1s infinite alternate;
+    transition: background 0.4s, border 0.2s, margin 0.2s;
+}
+#button:hover {
+    background: hsla(220, 100%, 60%, 1);
+    margin-top: -1px;
+
+    animation: none;
+}
+#button:active {
+    border-bottom-width: 0;
+    margin-top: 5px;
+}
+@keyframes pulse {
+    0% {
+        margin-top: 0px;
+    }
+    100% {
+        margin-top: 6px;
+    }
+}
+
+/*拖拽框*/
+#dropBox {
+    width: 420px;
+    height: 170px;
+    margin-left: 30px;
+    background: url("../image/drop_photo_bg.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+    color: black;
+    position: absolute;
+    margin-top: 75px;
+    display: none;
+}
+
+/*拖拽框上传图片,提示失败之后*/
+#dropBox_fail {
+    width: 420px;
+    height: 170px;
+    margin-left: 30px;
+    position: absolute;
+    margin-top: 75px;
+    background: white;
+    display: none;
+}
+
+#dropBox_fail .photo {
+    width: 150px;
+    height: 150px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: url("../image/4.jpg") no-repeat;
+    background-size: 100%;
+}
+
+#dropBox_fail .message {
+    width: 240px;
+    height: 150px;
+    margin-top: -160px;
+    margin-left: 170px;
+}
+
+#dropBox_fail .text {
+    text-align: center;
+    padding-top: 50px;
+    font-family: Calibri;
+    font-size: 16px;
+}
+
+#dropBox_fail .load-btn {
+    margin-top: -80px;
+    margin-left: 215px;
+    width: 150px;
+    border-radius: 0;
+}
+
+/*拖拽框上传图片,提示成功之后*/
+#dropBox_success {
+    width: 420px;
+    height: 170px;
+    margin-left: 30px;
+    position: absolute;
+    margin-top: 75px;
+    background: white;
+    display: none;
+}
+
+#dropBox_success .photo {
+    width: 150px;
+    height: 150px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: url("../image/4.jpg") no-repeat;
+    background-size: 100%;
+}
+
+#dropBox_success .message {
+    width: 240px;
+    height: 150px;
+    margin-top: -160px;
+    margin-left: 170px;
+}
+
+#dropBox_success .text {
+    text-align: center;
+    padding-top: 50px;
+    font-family: Calibri;
+    font-size: 16px;
+}
+
+#dropBox_success .look-result-btn {
+    margin-top: -80px;
+    margin-left: 215px;
+    width: 150px;
+    border-radius: 0;
+}
+
+
+/*进度展示框*/
+#progress_box {
+    width: 420px;
+    height: 170px;
+    margin-left: 30px;
+    position: absolute;
+    margin-top: 75px;
+    background: white;
+    display: none;
+}
+
+#progress_box .photo {
+    width: 150px;
+    height: 150px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: url("../image/4.jpg") no-repeat;
+    background-size: 100%;
+}
+
+#progress_box .loading {
+    width: 42px;
+    height: 42px;
+    margin-top: -120px;
+    margin-left: 280px;
+    background: url("../image/loading-b.gif");
+}
+
+#progress_box .message {
+    padding-top: 10px;
+    margin-left: 270px;
+}
+
+/*照片展示*/
+.img-list {
+    position: absolute;
+    width:420px;
+    height: 380px;
+    margin-top: 235px;
+    margin-left: 30px;
+    padding-left: 25px;
+    background: white;
+    padding-top: 70px;
+    display: none;
+}
+
+.img-list ul li{
+    float:left;
+    margin:10px 20px 0px 10px;
+}
+.img-list ul li a{
+    display:block;
+    width:160px;
+    height:140px;
+    position:relative;
+    overflow:hidden;
+}
+.img-list li img{
+    padding:10px;
+    display:block;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+}
+.img-list ul li a:hover img{
+    transform:scale(1.5);
+    -webkit-transform:scale(1.5);
+    -moz-transform:scale(1.5);
+    -ms-transform:scale(1.5);
+    transform:scale(1.5);
+}
+.img-list ul li a span{
+    position:absolute;
+    height:24px;
+    width:100%;
+    color:white;
+    line-height:24px;
+    font-size:15px;
+    bottom:5px;
+    padding-left: 10px;
+}
+
+.closePhotoBoxBtn {
+    float: right;
+    border: none;
+    border-radius: 0;
+    margin-top: -390px;
+}
+
+.closePhotoBoxBtn:hover {
+    background: white;
+    color: red;
+}
+
+.zoomBtn {
+    position: fixed;
+    right: 20px;
+    bottom: 60px;
+}
+
+.backBtn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
+
+.search-result {
+    width: 370px;
+    height: 70px;
+    margin-top: -60px;
+    position: absolute;
+    border: dashed 1px gray;
+    border-radius: 10px;
+    float: left;
+}
+
+#search-description {
+    float: left;
+    padding: 10px;
+    width: 60%;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+    font-size: 16px;
+}
+
+.clueBtn {
+    width: 130px;
+    border-radius: 0;
+    float: right;
+    margin-right: 20px;
+    margin-top: -50px;
+}
+/*提供线索表单*/
+#offer_clue_form{
+    position: absolute;
+    width:421px;
+    height: 585px;
+    margin-top: 30px;
+    margin-left: 30px;
+    border: hidden;
+    border-radius: 0;
+    display: none;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+    font-size: 16px;
+    text-align:justify;
+}
+.clue_label{
+    position: relative;
+    margin-left: 20px;
+}
+.clue_input{
+    position: relative;
+    width: 280px;
+    margin-left: 105px;
+    margin-top: -30px;
+}
+.clue_sex_input{
+    position: relative;
+    width: 280px;
+    margin-left: 105px;
+    margin-top: -11px;
+}
+#clue_submit{
+    margin-top: 8px;
+    margin-left: 10px;
+    width: 180px;
+}
+#clue_reset{
+    margin-top: 8px;
+    width: 180px;
+    margin-left: -5px;
+}
+#location_map{
+    margin-top: -7px;
+    margin-left: 90px;
+    width: 280px;
+    height: 195px;
+    border: 1px solid deepskyblue;
+}
+/*隐藏缩放按钮*/
+#location_map .ol-zoom{
+    display: none;
+}
+/*隐藏右下角按钮*/
+#location_map .ol-attribution {
+    display: none;
+}

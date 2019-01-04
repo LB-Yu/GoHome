@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="libs/lib/jquery-3.2.1.min.js"></script>
+    <title></title>
+    <script>
+        window.onload=function SearchBing() {
+            var query = "中国地质大学";
+            if(query ==""){
+                return;
+            }
+            //query += "寻人";
+            console.log(query);
+            var params = {
+                // Request parameters
+                "q": query,
+                "count": "5",
+                "offset": "0",
+                "mkt": "zh",
+                "safesearch": "Moderate"
+            };
+            var url = "https://api.cognitive.microsoft.com/bing/v7.0/search?" + $.param(params);
+            console.log(url);
+            $.ajax({
+                url: url,
+                beforeSend: function(xhrObj){
+                    // Request headers
+                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","192a7933e14848b5ac6395d66fdbc3d7");
+                },
+                type: "GET",
+                // Request body
+                data: "{body}"
+            })
+                .done(function(data) {
+                    console.log("success");
+                    console.log(data);
+                    console.log(JSON.stringify(data));
+                    /*var webPages = data.webPages.value;
+                     console.log(webPages);*/
+                    /*var images = data.images.value;
+                     console.log(images);*/
+//                    pages = data.webPages.value;
+//                    setResultList(data.webPages.value);
+//                    ID("load").style.display = "none";
+                })
+                .fail(function() {
+                    alert("error");
+                });
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>

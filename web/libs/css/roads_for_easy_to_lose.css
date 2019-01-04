@@ -1,0 +1,71 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+a,img{border:0;}
+
+#nav {
+	background:-webkit-radial-gradient(rgb(255,255,255),rgb(140,140,140));
+    background:-o-radial-gradient(rgb(255,255,255),rgb(140,140,140));
+    background:-moz-radial-gradient(rgb(255,255,255),rgb(140,140,140));
+    background:-ms-radial-gradient(rgb(255,255,255),rgb(140,140,140));
+    background:radial-gradient(rgb(255,255,255),rgb(140,140,140));
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: -80px;
+    right: -80px;
+    cursor: pointer;
+}
+#nav img {
+	position: absolute;
+	bottom: 85px;
+	right: 85px;
+}
+#out{
+	position: fixed;
+	width: 600px;
+	height: 600px;
+	right: -450px;
+	bottom: -450px; 
+    border-radius: 50%;
+    background-color: rgb(210,210,206);
+    opacity: 0.6;
+}
+ #first {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 100px;
+    top: 100px;
+    opacity: 1;
+    transform:rotate(0deg);
+}
+#second {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 100px;
+    top: 100px;
+    transform:rotate(45deg);
+    opacity: 1;
+}
+#third {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 100px;
+    top: 100px;
+    transform:rotate(90deg);
+    opacity: 1;
+} /**/
+
+.radius-box {
+    width: 200px;
+    position: fixed;
+    top: 35%;
+    left: 38%;
+    display: none;
+}

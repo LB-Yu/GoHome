@@ -1,0 +1,356 @@
+body {
+    background: white;
+}
+
+.chatBtn {
+    border-radius: 90px;
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    outline: none;
+    font-size: 20px;
+    border: white 1px;
+    background: green;
+}
+
+.chatBtn:hover {
+    -webkit-transition: .3s;
+    transition: .3s;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.chatIcon {
+    width: 50px;
+    height: 50px;
+}
+
+#mapCon {
+    width: 68%;
+    height: 100%;
+    border: solid 1px gray;
+    position: fixed;
+    cursor: crosshair;
+}
+#mapCon .ol-attribution {
+    display: none;
+}
+
+#mapCon .ol-zoom {
+    background: white;
+    color: black;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+/*地址输入框*/
+.addressInput {
+    left: 30px;
+    top: 20px;
+    position: fixed;
+    width: 180px;
+    height: 35px;
+    outline: none;
+    padding-left: 10px;
+}
+
+/*添加标注按钮*/
+.addMarkerBtn {
+    left: 220px;
+    top: 20px;
+    position: fixed;
+    height: 35px;
+    width: 100px;
+    background: #9dc2ff;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+    border: solid 1px white;
+}
+
+.addMarkerBtn:hover {
+    color: white;
+}
+
+/*添加描述输入框*/
+.addTextInput {
+    left: 420px;
+    top: 20px;
+    height: 35px;
+    width: 200px;
+    position: fixed;
+    padding-left: 10px;
+    outline: none;
+}
+
+/*绘制路线按钮*/
+.drawPathBtn {
+    left: 320px;
+    top: 20px;
+    height: 35px;
+    width: 100px;
+    position: fixed;
+    background: #9dc2ff;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+    border: solid 1px white;
+}
+
+.drawPathBtn:hover {
+    color: white;
+}
+
+.clearBtn {
+    left: 620px;
+    top: 20px;
+    height: 35px;
+    width: 110px;
+    position: fixed;
+    background: #9dc2ff;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+    border: solid 1px white;
+}
+
+.clearBtn:hover {
+    color: white;
+}
+
+.outPDF {
+    height: 50px;
+    text-align: center;
+    width: 200px;
+    left: 68%;
+    top: 85%;
+    position: fixed;
+}
+
+.outPNG {
+    height: 50px;
+    text-align: center;
+    width: 200px;
+    left: 83%;
+    top: 85%;
+    position: fixed;
+}
+
+.sim-button{
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    width: 150px;
+    cursor: pointer;
+    background: #33B2FF;
+    box-shadow: 0 0 10px 0 #33F3FF;
+    border-radius: 5px;
+}
+.sim-button1{
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    width: 200px;
+    left: 90%;
+    top: 65%;
+    position: fixed;
+    cursor: pointer;
+    background: #33B2FF;
+    box-shadow: 0 0 10px 0 #33F3FF;
+    border-radius: 5px;
+}
+.button14 {
+    color: rgba(255,255,255,1);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    position: relative;
+}
+.button14 a{
+    color: rgba(51,51,51,1);
+    text-decoration: none;
+    display: block;
+}
+.button14::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(255,255,255,0.25);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+}
+.button14:hover::before{
+    opacity: 0 ;
+    -webkit-transform: scale(0.5,0.5);
+    transform: scale(0.5,0.5);
+}
+.button14::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    border: 1px solid rgba(255,255,255,0.5);
+    -webkit-transform: scale(1.2,1.2);
+    transform: scale(1.2,1.2);
+}
+.button14:hover::after{
+    opacity: 1;
+    -webkit-transform: scale(1,1);
+    transform: scale(1,1);
+}
+
+.share {
+    bottom: 20px;
+    left: 540px;
+    position: fixed;
+}
+
+.restore {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    background: #988aff;
+    top: 70px;
+    left: 17px;
+    position: fixed;
+    border: solid 3px white;
+    outline: none;
+}
+
+.restore:hover {
+    background: #5a68ff;
+}
+
+.restoreIcon {
+    width: 15px;
+    height: 15px;
+}
+
+.weiboXiu {
+    width: 400px;
+    height: 450px;
+    margin-top: -70px;
+    float: right;
+    margin-right: 20px;
+    z-index: 999999999999;
+}
+
+#editGeomWin {
+    width: 360px;
+    height: 460px;
+    padding: 5px;
+    float: right;
+    border-radius: 0;
+    box-shadow: 0 0 30px black;
+}
+
+.change-picture {
+    border-radius: 5px;
+    cursor: pointer;
+    width: 105px;
+    height: 30px;
+    background: white;
+    border: solid 1px gray;
+}
+
+.move-picture {
+    border-radius: 5px;
+    cursor: pointer;
+    width: 105px;
+    height: 30px;
+    background: white;
+    border: solid 1px gray;
+}
+
+.remove-picture {
+    border-radius: 5px;
+    cursor: pointer;
+    width: 105px;
+    height: 30px;
+    background: white;
+    border: solid 1px gray;
+}
+
+.bottom-button {
+    border-radius: 5px;
+    cursor: pointer;
+    width: 153px;
+    height: 30px;
+    background: white;
+    border: solid 1px gray;
+}
+
+.address {
+    width: 365px;
+    position: fixed;
+    margin-top: 10px;
+    margin-left: 39%;
+    z-index: 9999999999999;
+}
+
+.form-control {
+    width: 80px;
+    height:33px;
+    background: white;
+    border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    float: left;
+    padding-left: 5px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+    font-size: 14px;
+    outline: none;
+}
+
+.detail-form-control {
+    width: 150px;
+    height:33px;
+    background: white;
+    border-radius: 5px;
+    float: left;
+    padding-left: 5px;
+    border: solid 1px #c5c5c5;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+    font-size: 14px;
+    outline: none;
+}
+
+.province {
+    width: 100px;
+    float: left;
+
+}
+
+.city {
+    width: 100px;
+    float: left;
+    margin-left: -15px;
+}
+
+.detail-address {
+    width: 180px;
+    float: left;
+    margin-left: -15px;
+}
+
+

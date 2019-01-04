@@ -1,0 +1,87 @@
+#mapCon .ol-zoom{
+    display: none;
+}
+
+#mapCon .ol-attribution {
+    display: none;
+}
+
+/*缩放按钮*/
+.zoomBtn {
+    position: fixed;
+    float: right;
+    margin-left: 450px;
+    margin-top: 370px;
+}
+
+/*复原按钮*/
+.backBtn {
+    position: fixed;
+    float: right;
+    margin-left: 450px;
+    margin-top: 450px;
+}
+
+.location-map{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+ }
+.check-ok{
+    display: none;
+    width: 20px;
+    height: 20px;
+    margin-left: -30px;
+    margin-top: 8px;
+}
+.error{
+    display: none;
+    width: 20px;
+    height: 20px;
+    margin-left: -30px;
+    margin-top: 8px;
+}
+.divshowup {
+    border:1px solid #677173;
+    width:150px;
+    height:150px;
+    position: absolute;
+    z-index: 99999;
+    background: white;
+}
+.divshowup img{
+    width:150px;
+    height:150px;
+}
+
+
+#img_label {
+    background-color: #f2d547;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+.row-offset{
+    position: relative;
+    top: 50px;
+}
+
+.province {
+    width: 120px;
+}
+
+.city {
+    width: 140px;
+}
+
+.detail-address {
+    width: 165px;
+}
+
+.main {
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 20px;
+}

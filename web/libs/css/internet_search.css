@@ -1,0 +1,194 @@
+.wrapper {
+    padding: 20px;
+    padding-top: 50px;
+}
+
+.close-button {
+    float: right;
+    margin-top: -50px;
+    margin-right: -5px;
+    border: none;
+    border-radius: 0;
+    background: white;
+    outline: none;
+}
+
+.close-button:hover {
+    background: white;
+    color: red;
+}
+
+.search-input {
+    border: none;
+    border-radius: 0;
+    height: 40px;
+    outline: none;
+    box-shadow: 0 0 30px grey;
+}
+
+.search-button {
+    border: none;
+    border-radius: 0;
+    height: 40px;
+    width: 40px;
+    background: white;
+    outline: none;
+    box-shadow: 0 0 30px grey;
+}
+
+.choose{
+    border: none;
+    background: white;
+    outline: none;
+}
+.choose:hover {
+    background: white;
+}
+
+.choose:focus,
+.choose:active:focus,
+.choose.active:focus,
+.choose.focus,
+.choose:active.focus,
+.choose.active.focus{
+    background: white;
+    outline: none;
+    border-color: transparent;
+}
+
+.choose-buttons {
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.line {
+    float: left;
+    width: 90%;
+    height: 1px;
+    margin-left: 5%;
+    background: #dddddd;
+}
+
+#red-line-left {
+    float: left;
+    width: 40px;
+    height: 3px;
+    background: red;
+}
+
+#red-line-right {
+    float: left;
+    margin-left: 9.5%;
+    width: 40px;
+    height: 3px;
+    background: red;
+    display: none;
+}
+
+.result {
+    margin-left: 30px;
+    margin-top: 20px;
+    width: 90%;
+}
+
+.result a{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#result-iframe {
+    position: absolute;
+    background: black;
+    margin-top: -100%;
+    display: none;
+    z-index: 9999;
+}
+
+
+/*加载动画*/
+.loader {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    width: 175px;
+    height: 100px;
+    display: none;
+}
+.loader span {
+    display: block;
+    background: #ccc;
+    width: 7px;
+    height: 10%;
+    border-radius: 14px;
+    margin-right: 5px;
+    float: left;
+    margin-top: 25%;
+}
+.loader span:last-child {
+    margin-right: 0px;
+}
+.loader span:nth-child(1) {
+    animation: load 2.5s 1.4s infinite linear;
+}
+.loader span:nth-child(2) {
+    animation: load 2.5s 1.2s infinite linear;
+}
+.loader span:nth-child(3) {
+    animation: load 2.5s 1s infinite linear;
+}
+.loader span:nth-child(4) {
+    animation: load 2.5s 0.8s infinite linear;
+}
+.loader span:nth-child(5) {
+    animation: load 2.5s 0.6s infinite linear;
+}
+.loader span:nth-child(6) {
+    animation: load 2.5s 0.4s infinite linear;
+}
+.loader span:nth-child(7) {
+    animation: load 2.5s 0.2s infinite linear;
+}
+.loader span:nth-child(8) {
+    animation: load 2.5s 0s infinite linear;
+}
+.loader span:nth-child(9) {
+    animation: load 2.5s 0.2s infinite linear;
+}
+.loader span:nth-child(10) {
+    animation: load 2.5s 0.4s infinite linear;
+}
+.loader span:nth-child(11) {
+    animation: load 2.5s 0.6s infinite linear;
+}
+.loader span:nth-child(12) {
+    animation: load 2.5s 0.8s infinite linear;
+}
+.loader span:nth-child(13) {
+    animation: load 2.5s 1s infinite linear;
+}
+.loader span:nth-child(14) {
+    animation: load 2.5s 1.2s infinite linear;
+}
+.loader span:nth-child(15) {
+    animation: load 2.5s 1.4s infinite linear;
+}
+@keyframes load {
+    0% {
+        background: #ccc;
+        margin-top: 25%;
+        height: 10%;
+    }
+    50% {
+        background: #444;
+        height: 100%;
+        margin-top: 0%;
+    }
+    100% {
+        background: #ccc;
+        height: 10%;
+        margin-top: 25%;
+    }
+}

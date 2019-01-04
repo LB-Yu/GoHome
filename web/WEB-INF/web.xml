@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <welcome-file-list>
+        <welcome-file>welcome.html</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>LogInController</servlet-name>
+        <servlet-class>ui.controller.LogInController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogInController</servlet-name>
+        <url-pattern>/pages/LogInController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PhotoUploadController</servlet-name>
+        <servlet-class>ui.controller.PhotoUploadController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PhotoUploadController</servlet-name>
+        <url-pattern>/pages/PhotoUploadController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserRegisterController</servlet-name>
+        <servlet-class>ui.controller.UserRegisterController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRegisterController</servlet-name>
+        <url-pattern>/pages/UserRegisterController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaceSearchController</servlet-name>
+        <servlet-class>ui.controller.FaceSearchController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaceSearchController</servlet-name>
+        <url-pattern>/pages/FaceSearchController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FaceDetectController</servlet-name>
+        <servlet-class>ui.controller.FaceDetectController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FaceDetectController</servlet-name>
+        <url-pattern>/pages/FaceDetectController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MissingPeopleRegistrationController</servlet-name>
+        <servlet-class>ui.controller.MissingPeopleRegistrationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MissingPeopleRegistrationController</servlet-name>
+        <url-pattern>/pages/MissingPeopleRegistrationController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PhotoMarkerController</servlet-name>
+        <servlet-class>ui.controller.PhotoMarkerController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PhotoMarkerController</servlet-name>
+        <url-pattern>/pages/PhotoMarkerController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ChatInitController</servlet-name>
+        <servlet-class>ui.controller.ChatInitController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddAttentionController</servlet-name>
+        <servlet-class>ui.controller.AddAttentionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelAttentionController</servlet-name>
+        <servlet-class>ui.controller.CancelAttentionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReFreshAttentionController</servlet-name>
+        <servlet-class>ui.controller.ReFreshAttentionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChatInitController</servlet-name>
+        <url-pattern>/pages/ChatInitController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAttentionController</servlet-name>
+        <url-pattern>/pages/AddAttentionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelAttentionController</servlet-name>
+        <url-pattern>/pages/CancelAttentionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReFreshAttentionController</servlet-name>
+        <url-pattern>/pages/ReFreshAttentionController</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>SpiderController</servlet-name>
+        <servlet-class>ui.controller.SpiderController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SpiderController</servlet-name>
+        <url-pattern>/pages/SpiderController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DailyRecommendationController</servlet-name>
+        <servlet-class>ui.controller.DailyRecommendationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DailyRecommendationController</servlet-name>
+        <url-pattern>/pages/DailyRecommendationController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GraphController</servlet-name>
+        <servlet-class>ui.controller.GraphController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GraphController</servlet-name>
+        <url-pattern>/pages/GraphController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ClueConfigController</servlet-name>
+        <servlet-class>ui.controller.ClueConfigController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClueConfigController</servlet-name>
+        <url-pattern>/pages/ClueConfigController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddFriendsController</servlet-name>
+        <servlet-class>ui.controller.AddFriendsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddFriendsController</servlet-name>
+        <url-pattern>/pages/AddFriendsController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddClueController</servlet-name>
+        <servlet-class>ui.controller.AddClueController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowRegistratedMissingPeopleDataController</servlet-name>
+        <servlet-class>ui.controller.ShowRegistratedMissingPeopleDataController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMissingPeopleDataController</servlet-name>
+        <servlet-class>ui.controller.UpdateMissingPeopleDataController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePhotoDataController</servlet-name>
+        <servlet-class>ui.controller.UpdatePhotoDataController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TagFoundController</servlet-name>
+        <servlet-class>ui.controller.TagFoundController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddClueController</servlet-name>
+        <url-pattern>/pages/AddClueController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowRegistratedMissingPeopleDataController</servlet-name>
+        <url-pattern>/pages/ShowRegistratedMissingPeopleDataController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMissingPeopleDataController</servlet-name>
+        <url-pattern>/pages/UpdateMissingPeopleDataController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePhotoDataController</servlet-name>
+        <url-pattern>/pages/UpdatePhotoDataController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TagFoundController</servlet-name>
+        <url-pattern>/pages/TagFoundController</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<link rel="stylesheet" type="text/css" href="../libs/lib/jquery.jscrollpane.custom.css" />
+		<link rel="stylesheet" type="text/css" href="../libs/lib/bookblock.css" />
+		<link rel="stylesheet" type="text/css" href="../libs/lib/custom.css" />
+		<link rel="stylesheet" type="text/css" href="../libs/css/statistical_graph.css"/>
+		<script src="../libs/lib/modernizr.custom.79639.js"></script>
+	</head>
+	<body>
+		<div id="container" class="container">	
+			<!-- 隐藏菜单 -->
+			<div class="menu-panel">
+				<h3>图表菜单</h3>
+				<ul id="menu-toc" class="menu-toc">
+					<li class="menu-toc-current"><a href="#item1">近10年全国失踪人口</a></li>
+					<li><a href="#item2">失踪人口年龄分布</a></li>
+					<li><a href="#item3">The honeymoon</a></li>
+					<li><a href="#item4">A drawing joke</a></li>
+					<li><a href="#item5">Commencing practice</a></li>
+				</ul>
+			</div>
+
+			<div class="bb-custom-wrapper">
+				<div id="bb-bookblock" class="bb-bookblock">
+					<div class="bb-item" id="item1">
+						<div class="content">
+							<div class="scroller">
+								<div class="graph">
+									<div class="chart" id="chart1"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bb-item" id="item2">
+						<div class="content">
+							<div class="scroller">
+								<div class="graph">
+									<div class="chart" id="chart2"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bb-item" id="item3">
+						<div class="content">
+							<div class="scroller">
+								<div class="graph">
+									<div class="chart" id="chart3"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bb-item" id="item4">
+						<div class="content">
+							<div class="scroller">
+								<div class="graph">
+									<div class="chart" id="chart4"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bb-item" id="item5">
+						<div class="content">
+							<div class="scroller">
+								<div class="graph"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<nav>
+					<span id="bb-nav-prev">&larr;</span>
+					<span id="bb-nav-next">&rarr;</span>
+				</nav>
+
+				<span id="tblcontents" class="menu-button">Table of Contents</span>
+
+			</div>
+				
+		</div><!-- /container -->
+		<script src="../libs/lib/jquery-1.11.2.min.js"></script>
+		<script src="../libs/lib/jquery.mousewheel.js"></script>
+		<script src="../libs/lib/jquery.jscrollpane.min.js"></script>
+		<script src="../libs/lib/jquerypp.custom.js"></script>
+		<script src="../libs/lib/jquery.bookblock.js"></script>
+		<script src="../libs/js/statistical_graph.js"></script>
+		<script>
+			$(function() {
+				Page.init();
+			});
+		</script>
+		<script src="../libs/lib/echarts-all.js" type="text/javascript"></script>
+		<!-- 图表展示 -->
+		<script type="text/javascript">
+			/**
+			 * 图表1
+			 * */
+            var chart1 = echarts.init(document.getElementById('chart1'));
+            var dataMap = {
+                boy: {
+                    '2007': [2, 2, 1, 12, 7, 0, 1, 4, 1, 2, 0, 1, 7, 3, 8, 19, 3, 14, 4, 5, 16, 8, 4, 29, 13, 28, 17, 11, 3, 2],
+                    '2008': [5, 0, 3, 11, 13, 3, 4, 3, 4, 1, 2, 9, 2, 10, 3, 6, 8, 10, 11, 15, 9, 10, 44, 0, 16, 20, 14, 8, 8, 0],
+                    '2009': [2, 1, 2, 5, 6, 4, 3, 3, 0, 1, 1, 5, 9, 5, 4, 2, 7, 6, 3, 21, 9, 10, 23, 3, 22, 18, 19, 11, 5, 0],
+                    '2010': [3, 0, 4, 5, 9, 1, 0, 2, 4, 2, 1, 0, 10, 7, 8, 3, 3, 11, 9, 8, 22, 9, 7, 28, 0, 22, 21, 8, 11, 3, 0],
+                    '2011': [1, 2, 2, 8, 5, 2, 1, 4, 1, 4, 3, 7, 5, 6, 7, 7, 2, 9, 9, 20, 5, 12, 36, 19, 10, 10, 14, 3, 2],
+                    '2012': [2, 4, 3, 4, 9, 2, 3, 1, 0, 3, 10, 3, 9, 6, 4, 3, 9, 6, 10, 16, 8, 24, 16, 11, 6, 11, 1],
+                    '2013': [9, 0, 1, 5, 8, 1, 2, 4, 2, 0, 2, 7, 2, 5, 11, 5, 7, 14, 3, 25, 5, 15, 32, 20, 13, 10, 7, 1, 0],
+                    '2014': [5, 9, 10, 22, 0, 1, 0, 3, 1, 0, 9, 9, 13, 11, 5, 8, 16, 6, 16, 10, 14, 39, 1, 20, 13, 4, 3, 10, 3],
+                    '2015': [7, 0, 3, 6, 13, 2, 1, 2, 0, 1, 0, 9, 7, 6, 11, 4, 12, 13, 9, 23, 13, 9, 43, 0, 22, 18, 8, 15, 0, 0],
+                    '2016': [5, 6, 3, 17, 26, 2, 2, 0, 3, 2, 2, 3, 19, 15, 23, 9, 20, 10, 20, 17, 51, 16, 35, 88, 1, 72, 33, 15, 14, 12, 0],
+                    '2017': [4, 1, 6, 18, 10, 3, 1, 0, 2, 0, 1, 21, 4, 11, 3, 19, 9, 14, 10, 29, 16, 18, 40, 0, 43, 34, 12, 11, 3, 0]
+                },
+                girl: {
+                    '2007': [4, 0, 5, 5, 3, 0, 1, 5, 1, 2, 3, 6, 6, 11, 7, 11, 8, 9, 4, 5, 19, 8, 5, 21, 9, 11, 6, 5, 7, 2],
+                    '2008': [3, 3, 3, 4, 8, 2, 3, 2, 4, 4, 3, 5, 10, 7, 5, 1, 3, 7, 5, 16, 3, 5, 28, 0, 16, 10, 11, 4, 3, 0],
+                    '2009': [2, 1, 1, 6, 4, 1, 1, 4, 0, 1, 3, 5, 7, 5, 10, 6, 7, 6, 5, 17, 3, 6, 18, 0, 12, 12, 12, 7, 3, 0],
+                    '2010': [1, 2, 2, 5, 6, 2, 0, 2, 6, 2, 1, 0, 10, 3, 4, 3, 6, 6, 10, 8, 11, 5, 9, 20, 0, 6, 8, 8, 3, 5, 0],
+                    '2011': [5, 1, 2, 2, 7, 3, 1, 5, 1, 0, 5, 14, 5, 9, 4, 4, 8, 5, 7, 10, 5, 6, 14, 9, 8, 4, 7, 5, 2],
+                    '2012': [4, 0, 0, 9, 3, 1, 0, 1, 0, 7, 4, 7, 10, 7, 4, 9, 2, 13, 14, 9, 9, 16, 13, 13, 6, 2, 1],
+                    '2013': [2, 0, 2, 7, 7, 4, 3, 5, 8, 0, 3, 10, 5, 13, 13, 9, 7, 4, 11, 16, 9, 13, 31, 11, 12, 8, 8, 4, 0],
+                    '2014': [0, 2, 4, 7, 0, 2, 0, 4, 2, 8, 7, 7, 11, 13, 3, 6, 8, 10, 14, 9, 11, 32, 1, 14, 20, 3, 8, 8, 3],
+                    '2015': [4, 0, 1, 5, 10, 0, 1, 1, 0, 4, 2, 10, 3, 9, 6, 9, 5, 8, 8, 21, 7, 18, 29, 0, 13, 13, 12, 5, 5, 0],
+                    '2016': [6, 2, 8, 15, 20, 6, 0, 0, 6, 5, 4, 2, 17, 7, 15, 22, 23, 14, 30, 27, 43, 23, 33, 72, 3, 52, 32, 14, 10, 8, 0],
+                    '2017': [6, 1, 1, 12, 6, 2, 2, 0, 2, 0, 4, 10, 1, 12, 7, 13, 12, 10, 6, 22, 12, 13, 27, 0, 39, 20, 14, 7, 5, 0]
+                }
+            };
+            var option1 = {
+                timeline:{
+                    data:[
+                        '2008-01-01','2009-01-01','2010-01-01','2011-01-01','2012-01-01',
+                        '2013-01-01','2014-01-01','2015-01-01','2016-01-01','2017-01-01'
+                    ],
+                    label : {
+                        formatter : function(s) {
+                            return s.slice(0, 4);
+                        }
+                    },
+                    autoPlay : true,
+                    playInterval : 1000
+                },
+                options:[
+                    {
+                        color:['#3e76a8', '#49ff82'],
+                        title : {
+                            'text':'2008年全国失踪人口分析',
+                            'subtext':'数据样本来自宝贝回家网'
+                        },
+                        tooltip : {'trigger':'axis'},
+                        legend : {
+                            x:'680',
+                            y:'10',
+                            'data':['男','女'],
+                            'selected':{
+                                '男':true,
+                                '女':true
+                            }
+                        },
+                        toolbox : {
+                            'show':true,
+                            orient : 'horizontal',
+                            borderWidth:1,
+                            borderColor:'#777777',
+                            padding:8,
+                            x: '789',
+                            y: 'top',
+                            'feature':{
+                                'mark':{'show':true},
+                                'dataView':{'show':true,'readOnly':false},
+                                'magicType':{'show':true,'type':['line','bar','stack','tiled']},
+                                'restore':{'show':true},
+                                'saveAsImage':{'show':true}
+                            }
+                        },
+                        calculable : true,
+                        grid : {'y':80,'y2':100},
+                        xAxis : [{
+                            'type':'category',
+                            'axisLabel':{'interval':0},
+                            'data':[
+                                '北京','\n天津','上海','\n重庆','广西','\n内蒙古','西藏','\n宁夏',
+                                '新疆','\n辽宁','吉林','\n黑龙江','河北','\n山西','江苏','\n浙江',
+                                '安徽','\n福建','江西','\n山东','河南','\n湖北','湖南','\n广东',
+                                '四川','\n贵州','云南','\n陕西','甘肃','\n青海'
+                            ]
+                        }],
+                        yAxis : [
+                            {
+                                'type':'value',
+                                'name':'男（个）',
+                                'max': 100
+                            },
+                            {
+                                'type':'value',
+                                'name':'女（个）',
+                                'max': 100
+                            }
+                        ],
+                        series : [
+                            {
+                                'name':'男',
+                                'type':'bar',
+                                'markLine':{
+                                    symbol : ['arrow','none'],
+                                    symbolSize : [4, 2],
+                                    itemStyle : {
+                                        normal: {
+                                            lineStyle: {color:'orange'},
+                                            barBorderColor:'orange',
+                                            label:{
+                                                position:'left',
+                                                formatter:function(params){
+                                                    return Math.round(params.value);
+                                                },
+                                                textStyle:{color:'orange'}
+                                            }
+                                        }
+                                    },
+                                    'data':[{'type':'average','name':'平均值'}]
+                                },
+                                'data': dataMap.boy['2008']
+                            },
+                            {
+                                'name':'女','yAxisIndex':1,'type':'bar',
+                                'data': dataMap.girl['2008']
+                            }
+                        ]
+                    },
+                    {
+                        title : {'text':'2009年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2009']},
+                            {'data': dataMap.girl['2009']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2010年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2010']},
+                            {'data': dataMap.girl['2010']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2011年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2011']},
+                            {'data': dataMap.girl['2011']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2012年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2012']},
+                            {'data': dataMap.girl['2012']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2013年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2013']},
+                            {'data': dataMap.girl['2013']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2014年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2014']},
+                            {'data': dataMap.girl['2014']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2015年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2015']},
+                            {'data': dataMap.girl['2015']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2016年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2016']},
+                            {'data': dataMap.girl['2016']}
+                        ]
+                    },
+                    {
+                        title : {'text':'2017年全国失踪人口分析'},
+                        series : [
+                            {'data': dataMap.boy['2017']},
+                            {'data': dataMap.girl['2017']}
+                        ]
+                    }
+                ]
+            };
+            chart1.setOption(option1);
+
+            /**
+			 * 图表2
+			 * */
+            var chart2 = echarts.init(document.getElementById('chart2'));
+            var option2 = {
+                title : {
+                    x:'left',
+                    'text':'失踪人口年龄分布',
+                    'subtext':'数据样本来自宝贝回家网'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                    y: 'bottom',
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                legend: {
+                    x: 'right',
+                    data:['1-5岁','6-10岁','11-15岁','16-20岁','21-25岁','26-30岁','31-35岁','36-40岁']
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        splitLine : {show : false},
+                        data : ['1-5岁','6-10岁','11-15岁','16-20岁','21-25岁','26-30岁','31-35岁','36-40岁']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        position: 'right'
+                    }
+                ],
+                series : [
+                    {
+                        name:'各年龄段失踪人员个数',
+                        type:'bar',
+                        data:[13251, 4770, 4729, 815, 47, 50, 25, 14]
+                    },
+                    {
+                        name:'各年龄段失踪人员个数',
+                        type:'line',
+                        data:[13251, 4770, 4729, 815, 47, 50, 25, 14]
+                    },
+                    {
+                        name:'各年龄段失踪人员百分比',
+                        type:'pie',
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        },
+                        center: [850,130],
+                        radius : [0, 50],
+                        itemStyle :　{
+                            normal : {
+                                labelLine : {
+                                    length : 20
+                                }
+                            }
+                        },
+                        data:[
+                            {value:13251, name:'1-5岁'},
+                            {value:4770, name:'6-10岁'},
+                            {value:4729, name:'11-15岁'},
+                            {value:815, name:'16-20岁'},
+                            {value:47, name:'21-25岁'},
+                            {value:50, name:'26-30岁'},
+                            {value:25, name:'31-35岁'},
+                            {value:14, name:'36-40岁'}
+                        ]
+                    }
+                ]
+            };
+            chart2.setOption(option2);
+
+            /**
+			 * 图表3
+			 * */
+            var chart3 = echarts.init(document.getElementById('chart3'));
+            var tenDaysNum;
+            // 数据请求
+			var formData = new FormData();
+			formData.append("message", "nearly 10 days");
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    var data = xhr.responseText;
+                    tenDaysNum = JSON.parse(data);
+                    console.log(tenDaysNum);
+                    var option3 = {
+                        title : {
+                            x:'left',
+                            text: '近10日失踪人口变化',
+                            subtext: '数据来自宝贝回家网'
+                        },
+                        tooltip : {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['失踪人口数']
+                        },
+                        toolbox: {
+                            show : true,
+                            feature : {
+                                mark : {show: true},
+                                dataView : {show: true, readOnly: false},
+                                magicType : {show: true, type: ['line', 'bar']},
+                                restore : {show: true},
+                                saveAsImage : {show: true}
+                            }
+                        },
+                        dataZoom : {
+                            show : false,
+                            start : 0,
+                            end : 100
+                        },
+                        xAxis : [
+                            {
+                                type : 'category',
+                                boundaryGap : true,
+                                data : (function (){
+                                    var res = [];
+                                    for (var i=9;i>=3;i--) {
+                                        res.push(getDate(i))
+                                    }
+                                    return res;
+                                })()
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                scale: true,
+                                name : '人数',
+                                boundaryGap: [0.2, 0.2]
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'失踪人数',
+                                type:'bar',
+                                data:(function (){
+                                    var res = [];
+                                    for (var i=0;i<7;i++) {
+                                        res.push(tenDaysNum[i]);
+                                    }
+                                    return res;
+                                })()
+                            }
+                        ]
+                    };
+                    var lastData = 2;
+                    var axisData;
+                    var timeTicket;
+                    clearInterval(timeTicket);
+                    timeTicket = setInterval(function (){
+                        if (lastData<0) {
+                            lastData = 9;
+                        }
+                        axisData = getDate(lastData--);
+
+                        // 动态数据接口 addData
+                        chart3.addData([
+                            [
+                                0,        // 系列索引
+                                tenDaysNum[8-lastData], // 新增数据
+                                false,     // 新增数据是否从队列头部插入
+                                false     // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                            ],
+                            [
+                                1,        // 系列索引
+                                tenDaysNum[8-lastData], // 新增数据
+                                false,    // 新增数据是否从队列头部插入
+                                false,    // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                                axisData  // 坐标轴标签
+                            ]
+                        ]);
+                    }, 2100);
+                    chart3.setOption(option3);
+                }
+            };
+            xhr.open("post", "GraphController", true);
+            xhr.send(formData);
+
+
+            var chart4 = echarts.init(document.getElementById('chart4'));
+            var option4 = {
+                title : {
+                    x: 'left',
+                    text: '近20年男女失踪人数',
+                    subtext: '数据来自宝贝回家网'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['女','男']
+                },
+                toolbox: {
+                    x: 'right',
+					y: 'top',
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : ['1998年','1999年', '2000年',
+                            '2001年','2002年','2003年','2004年','2005年',
+                            '2006年','2007年','2008年','2009年','2010年',
+                            '2011年','2012年','2013年','2014年','2015年',
+                            '2016年','2017年'
+                        ]
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        axisLabel : {
+                            formatter: '{value}'
+                        }
+                    }
+                ],
+                series : [
+                    {
+                        name:'女',
+                        type:'line',
+                        data:[506,469, 377, 325, 240, 257, 234, 216, 189, 190, 193, 184, 173, 158, 162, 172, 227, 217, 210, 521],
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                    {
+                        name:'男',
+                        type:'line',
+                        data:[639,697, 568, 451, 362, 307, 373, 278, 284, 279, 233, 258, 228, 228, 218, 184, 218, 262, 260, 543],
+                        markPoint : {
+                            data : [
+                                {type:'max', name:'最大值'},
+                                {type:'min', name:'最小值'}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name : '平均值'}
+                            ]
+                        }
+                    }
+                ]
+            };
+            chart4.setOption(option4);
+
+            /**
+             * 获取前n天的时间
+             * */
+            function getDate(n) {
+                var now = new Date();
+                var date = new Date(now - n*24*60*60*1000);
+                var year = date.getFullYear().toString();
+                var month = (date.getMonth()+1).toString();
+                var day = date.getDate().toString();
+                return year+"/"+month+"/"+day
+            }
+		</script>
+	</body>
+</html>

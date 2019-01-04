@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>要素动画</title>
+    <link href="../libs/lib/ol.css" rel="stylesheet" type="text/css" />
+    <script src="../libs/lib/ol.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="mapCon" style="width: 100%; height: 95%; position: absolute;">
+</div>
+<script type="text/javascript">
+
+
+    var map = new ol.Map({
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM({
+                    wrapX: false
+                })
+            })
+        ],
+        controls: ol.control.defaults({
+            attributionOptions: ({
+                collapsible: false
+            })
+        }),
+        target: 'mapCon',
+        view: new ol.View({
+            center: [0, 0],
+            zoom: 2
+        })
+    });
+
+    var source = new ol.source.Vector({
+        wrapX: false
+    });
+    var vector = new ol.layer.Vector({
+        source: source
+    });
+    map.addLayer(vector);
+
+    function addRandomFeature(coordinate, value) {
+        var x = Math.random() * 360 - 180;
+        var y = Math.random() * 180 - 90;
+        var geom = new ol.geom.Point(ol.proj.transform([x, y], 'EPSG:4326', 'EPSG:3857'));
+        var feature = new ol.Feature({
+            geometry: geom,
+            geometryOrProperties: {"value": value}
+        });
+        source.addFeature(feature);
+    }
+
+    function flash(feature, value) {
+        var radius = 0;
+        function animate(event) {
+            var vectorContext = event.vectorContext;
+            var flashGeom = feature.getGeometry().clone();
+            radius +=0.1;
+            radius = radius%value;
+            var opacity = 1;
+
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: radius,
+                    snapToPixel: false,
+                    stroke: new ol.style.Stroke({
+                        color: 'rgba(255, 0, 0, ' + opacity + ')',
+                        width: 1
+                    })
+                })
+            });
+
+            vectorContext.setStyle(style);
+            vectorContext.drawGeometry(flashGeom);
+            //继续postcompose动画
+            map.render();
+        }
+        map.on('postcompose', animate);
+    }
+
+    source.on('addfeature', function (e) {
+        flash(e.feature, e.feature.O.geometryOrProperties.value);
+    });
+
+    addRandomFeature([0,0], 10);
+    addRandomFeature([0,0], 100);
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>缓冲区分析</title>
+    <script src="../libs/lib/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../libs/lib/ol-debug.js" type="text/javascript"></script>
+    <script src="../libs/lib/zondyClient.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        /*==========================================底图显示===================================================*/
+        var map, vectorLayer;
+        //缓存结果图层的基地址
+        var resultBaseUrl = "gdbp://MapGisLocal/gohome/sfcls/";
+        //地图初始化函数
+        function init() {
+            //初始化地图容器
+            map = new ol.Map({
+                target: "mapCon",
+                view: new ol.View({
+                    center:[114,30],
+                    zoom:10,
+                    projection:"EPSG:4326"
+                })
+            });
+            //创建一个图层
+            vectorLayer = new Zondy.Map.Layer("buffer_test", ["gdbp://MapGisLocal/GoHome/sfcls/roads_for_easy_to_lose.wl"], {
+                ip: "localhost",
+                port: "6163"
+            });
+            //将地图文档图层加载到地图中
+            map.addLayer(vectorLayer);
+            singleBuffAnalysis("rad");
+        }
+
+        /*============================================单圈缓冲区分析===================================================*/
+        //执行单圈缓冲区分析
+        function singleBuffAnalysis(anaType) {
+            clearA();
+
+            if (anaType == "rad") {
+                //实例化ClassBufferBySingleRing类
+                var clsBufBySR = new Zondy.Service.ClassBufferBySingleRing({
+                    ip: "localhost",
+                    port: "6163",
+                    //缓冲时要素左侧缓冲半径
+                    leftRad: 0.0005,
+                    //缓冲时要素右侧缓冲半径
+                    rightRad: 0.0005,
+                    //不允许根据属性字段设置缓冲区半径
+                    isByAtt: false
+                });
+            } else if (anaType == "att") {
+                //实例化ClassBufferBySingleRing类
+                var clsBufBySR = new Zondy.Service.ClassBufferBySingleRing({
+                    ip: "localhost",
+                    port: "6163",
+                    //允许根据属性字段设置缓冲区半径
+                    isByAtt: true
+                    //用于设置缓冲半径的属性字段名称
+                    //fldName: ""
+                });
+                clsBufBySR.fldName = "长度";
+            }
+
+            //调用Zondy.Service.ClassBufferBase基类公共属性
+            clsBufBySR.srcInfo = "gdbp://MapGisLocal/GoHome/sfcls/roads_for_easy_to_lose.wl";
+            var resultname = "singleBuffAnalysisResultLayer" + getCurentTime();
+            clsBufBySR.desInfo = resultBaseUrl + resultname;
+
+            //调用基类Zondy.Service.AnalysisBase的execute方法执行类缓冲分析，AnalysisSuccess为回调函数
+            clsBufBySR.execute(AnalysisSuccess,"post",false,"json", AnalysisError);
+        }
+
+        /*============================================多圈缓冲区分析===================================================*/
+        //执行多圈缓冲区分析
+        function multiBuffAnalysis() {
+            clearA();
+            //实例化ClassBufferByMultiplyRing类
+            var clsBufByMR = new Zondy.Service.ClassBufferByMultiplyRing({
+                ip: "develop.smaryun.com",
+                port: "6163",
+                //多圈缓冲分析各圈的缓冲半径
+                radiusStr: "0.01,0.05,1"
+            });
+            //调用Zondy.Service.ClassBufferBase基类公共属性
+            clsBufByMR.srcInfo = "gdbp://MapGisLocal/OpenLayerVecterMap/ds/世界地图经纬度/sfcls/世界河流_1";
+            var resultname = "multiBuffAnalysisResultLayer" + getCurentTime();
+            clsBufByMR.desInfo = resultBaseUrl + resultname;
+            //调用基类Zondy.Service.AnalysisBase的execute方法执行类缓冲分析，AnalysisSuccess为回调函数
+            clsBufByMR.execute(AnalysisSuccess, "post", false, "json", AnalysisError);
+        }
+
+        //分析失败回调
+        function AnalysisError(e) {
+            window.alert("分析失败！");
+        }
+
+        //分析成功后的回调
+        function AnalysisSuccess(data) {
+            if (data.results) {
+                if (data.results.length != 0) {
+                    var resultLayerUrl = data.results[0].Value;
+                    //将结果图层添加到地图视图中显示
+                    var resultLayer = new Zondy.Map.Layer("MapGIS IGS BuffAnalyResultLayer", [resultBaseUrl + resultLayerUrl], {
+                        ip: "localhost",
+                        port: "6163"
+                    });
+                    map.addLayer(resultLayer);
+                }
+
+            }
+            else {
+                alert("缓冲失败，请检查参数！");
+            }
+        }
+
+        //清除客户端分析结果信息
+        function clearA() {
+            if (map.getLayers().array_.length > 1) {
+                for (var i = map.getLayers().array_.length - 1; i > 0; i--) {
+                    map.removeLayer(map.getLayers().array_[i]);
+                }
+            }
+            else
+                return;
+        }
+
+        /*========================================获取当前时间（如：2015-09-09-120000）===================================================*/
+        //当前日期加时间(如:2009-06-12-120000)
+        function getCurentTime() {
+            var now = new Date();
+            //获取当前年份
+            var year = now.getFullYear();
+            //获取当前月份
+            var month = now.getMonth() + 1;
+            //获取当前日期
+            var day = now.getDate();
+            //获取当前时刻
+            var hh = now.getHours();
+            //获取当前分钟
+            var mm = now.getMinutes();
+            //获取当前秒钟
+            var ss = now.getSeconds();
+            //将当前的日期拼串
+            var clock = year + "-";
+            if (month < 10)
+                clock += "0";
+            clock += month + "-";
+            if (day < 10)
+                clock += "0";
+            clock += day + "-";
+            if (hh < 10)
+                clock += "0";
+            clock += hh;
+            if (mm < 10) clock += '0';
+            clock += mm;
+            if (ss < 10) clock += '0';
+            clock += ss;
+            return (clock);
+        }
+
+    </script>
+</head>
+<body onload="init()">
+<div id="mapCon" style="position: absolute;width: 100%;height: 100%;border: solid">
+
+</div>
+</body>
+</html>

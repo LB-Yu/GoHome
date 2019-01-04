@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../libs/lib/ol.css" rel="stylesheet" type="text/css"/>
+    <link href="../libs/css/cluster_influence_map.css" rel="stylesheet" type="text/css"/>
+    <script src="../libs/lib/ol.js" type="text/javascript"></script>
+    <script src="../libs/js/map_utils.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="mapCon"></div>
+</body>
+<script type="text/javascript">
+    /**
+     * 地图相关全局变量
+     * */
+    var zoom = 4.5;
+    var center = [110.40623,35.529037];
+    var view = new ol.View({
+        //地图初始中心点
+        center: center,
+        //地图初始显示级别
+        zoom: zoom,
+        projection: new ol.proj.get('EPSG:4326'),
+        minZoom: zoom
+    });
+    var map = createMap("mapCon", view);
+
+    /**
+     * 动画
+     * */
+    var source = new ol.source.Vector({
+        wrapX: false
+    });
+    var vector = new ol.layer.Vector({
+        source: source
+    });
+    map.addLayer(vector);
+
+    function addRandomFeature(coordinate, value) {
+        var geom = new ol.geom.Point(coordinate);
+        var feature = new ol.Feature({
+            geometry: geom,
+            geometryOrProperties: {"value": value}
+        });
+        source.addFeature(feature);
+    }
+
+    function flash(feature, value) {
+        var radius = 5;
+        function animate(event) {
+            var vectorContext = event.vectorContext;
+            var flashGeom = feature.getGeometry().clone();
+            radius += 0.25;
+            radius = radius%value;
+            var opacity = 1;
+
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: radius,
+                    snapToPixel: false,
+                    stroke: new ol.style.Stroke({
+                        color: 'rgba(255, 0, 0, ' + opacity + ')',
+                        width: 1
+                    })
+                })
+            });
+
+            vectorContext.setStyle(style);
+            vectorContext.drawGeometry(flashGeom);
+            //继续postcompose动画
+            map.render();
+        }
+        map.on('postcompose', animate);
+    }
+
+    source.on('addfeature', function (e) {
+        flash(e.feature, e.feature.O.geometryOrProperties.value);
+    });
+
+    var dateMap = [
+        {coordinate:[113.6736079,22.93446915],num:1976},
+        {coordinate:[106.5504289,26.62438862],num:2440},
+        {coordinate:[104.3640877,30.81805605],num:1296},
+        {coordinate:[106.3497025,29.73897966],num:833},
+        {coordinate:[114.3230316,30.52682532],num:809},
+        {coordinate:[105.4265595,29.72628541],num:542},
+        {coordinate:[106.8025297,30.6906173],num:947},
+        {coordinate:[121.1097131,31.29869451],num:683},
+        {coordinate:[113.6635217,34.70661444],num:905},
+        {coordinate:[105.4787742,30.68702786],num:553},
+        {coordinate:[108.8417025,34.33684338],num:786},
+        {coordinate:[118.9631677,25.43071721],num:814},
+        {coordinate:[117.7182198,31.68839718],num:972},
+        {coordinate:[120.2829187,31.71300288],num:652},
+        {coordinate:[117.1548619,34.29726154],num:392},
+        {coordinate:[114.4758459,36.41335426],num:593},
+        {coordinate:[105.4745571,28.16480109],num:723},
+        {coordinate:[116.3992937,39.87085645],num:620},
+        {coordinate:[116.3550257,23.46831258],num:588},
+        {coordinate:[114.5757688,33.43007053],num:416},
+        {coordinate:[102.7406495,25.00404536],num:542},
+        {coordinate:[115.9211521,28.47126699],num:417},
+        {coordinate:[111.930931,27.14591034],num:369},
+        {coordinate:[117.0413538,32.98933734],num:491},
+        {coordinate:[120.0849474,29.66400388],num:506},
+        {coordinate:[115.0617454,34.5252592],num:290},
+        {coordinate:[112.3009823,32.59490914],num:402},
+        {coordinate:[116.2263068,34.99395282],num:273},
+        {coordinate:[112.7683858,27.70091329],num:332},
+        {coordinate:[113.0717347,33.48614845],num:285},
+        {coordinate:[110.4352422,21.84827784],num:330},
+        {coordinate:[115.2516046,30.12417599],num:352},
+        {coordinate:[112.6640334,26.48711175],num:240},
+        {coordinate:[118.3794563,34.41286932],num:271},
+        {coordinate:[114.7025904,38.1085553],num:266},
+        {coordinate:[109.9854768,22.63865807],num:224},
+        {coordinate:[116.9032001,36.10228098],num:299},
+        {coordinate:[120.6620308,28.00639474],num:369},
+        {coordinate:[104.2272176,27.63890519],num:532},
+        {coordinate:[110.7234942,35.00137691],num:403},
+        {coordinate:[119.4926055,33.80344311],num:285},
+        {coordinate:[112.8330792,29.97637434],num:254},
+        {coordinate:[115.6814508,38.80449617],num:205},
+        {coordinate:[112.0146442,30.64999441],num:221},
+        {coordinate:[117.995289,26.55826551],num:197},
+        {coordinate:[109.6256893,23.81165504],num:172},
+        {coordinate:[108.4415941,22.80083567],num:239},
+        {coordinate:[115.2255003,27.88141195],num:205},
+        {coordinate:[115.6242527,37.56911765],num:191},
+        {coordinate:[118.5592429,36.72106183],num:211},
+        {coordinate:[114.1335618,31.97420992],num:220},
+        {coordinate:[113.1628496,25.40146897],num:127},
+        {coordinate:[109.4092586,27.65999704],num:222},
+        {coordinate:[112.5397138,37.88433465],num:226},
+        {coordinate:[110.8232962,25.23609481],num:178},
+        {coordinate:[119.7569765,36.33954759],num:196},
+        {coordinate:[103.8086568,35.98034474],num:163},
+        {coordinate:[123.4381008,41.68514621],num:177},
+        {coordinate:[125.7028528,43.95607349],num:172},
+        {coordinate:[114.2968942,25.24251667],num:133},
+        {coordinate:[108.6578998,32.68985302],num:178},
+        {coordinate:[118.0636573,27.56977743],num:77},
+        {coordinate:[111.022834,23.9776693],num:117},
+        {coordinate:[113.444749,24.34211543],num:111},
+        {coordinate:[118.0497509,28.49846643],num:223},
+        {coordinate:[126.5740747,45.58130569],num:144},
+        {coordinate:[111.7317456,23.05629581],num:140},
+        {coordinate:[113.2407045,39.97245716],num:146},
+        {coordinate:[107.3303925,33.06115942],num:212},
+        {coordinate:[87.57188381,43.8347073],num:127},
+        {coordinate:[108.7128883,29.49338862],num:267},
+        {coordinate:[115.8952917,25.9313849],num:112},
+        {coordinate:[103.7061706,23.70451972],num:157},
+        {coordinate:[106.2842315,38.51450301],num:152},
+        {coordinate:[108.6660135,28.51805482],num:121},
+        {coordinate:[102.612092,27.38159864],num:134},
+        {coordinate:[117.0619321,27.28822062],num:112},
+        {coordinate:[110.0924935,19.74672418],num:120},
+        {coordinate:[105.4565313,34.75484593],num:81},
+        {coordinate:[116.8390516,25.10746685],num:120},
+        {coordinate:[104.368882,35.17644743],num:59},
+        {coordinate:[118.7594423,39.95327004],num:125},
+        {coordinate:[101.8144863,36.65269479],num:84},
+        {coordinate:[101.7379169,26.6941232],num:74},
+        {coordinate:[108.2443066,24.28769626],num:65},
+        {coordinate:[130.7617929,46.38462675],num:131},
+        {coordinate:[106.5639248,35.24071908],num:147},
+        {coordinate:[121.3213809,41.40319536],num:66},
+        {coordinate:[110.0305837,32.06903452],num:199},
+        {coordinate:[126.0293506,42.17132568],num:81},
+        {coordinate:[124.5798989,43.19577283],num:57},
+        {coordinate:[121.7014045,39.05578289],num:103},
+        {coordinate:[109.9506989,40.62953434],num:58},
+        {coordinate:[111.6633022,39.31646016],num:49},
+        {coordinate:[105.3711775,23.51364464],num:136},
+        {coordinate:[107.831767,25.10905467],num:64},
+        {coordinate:[124.3516132,47.06981496],num:51},
+        {coordinate:[114.7004666,40.58816666],num:55},
+        {coordinate:[111.7450252,40.71834039],num:45},
+        {coordinate:[125.3254595,46.55150461],num:51},
+        {coordinate:[110.3912792,29.84131911],num:86},
+        {coordinate:[129.5272165,44.52370706],num:46},
+        {coordinate:[111.1877226,38.21790946],num:31},
+        {coordinate:[119.8171183,41.06897874],num:65},
+        {coordinate:[85.5760242,44.38237426],num:38},
+        {coordinate:[126.9477475,46.84303301],num:31},
+        {coordinate:[102.3800335,38.12242789],num:38},
+        {coordinate:[80.25928262,41.05678613],num:43},
+        {coordinate:[110.1722257,37.85165996],num:25},
+        {coordinate:[109.3961402,36.0743878],num:42},
+        {coordinate:[85.98872675,41.90026069],num:34},
+        {coordinate:[100.533948,25.56251265],num:37},
+        {coordinate:[126.4682798,47.92153598],num:22},
+        {coordinate:[110.0838419,36.88333926],num:27},
+        {coordinate:[99.52853777,25.48610219],num:15},
+        {coordinate:[99.57824268,23.38219889],num:24},
+        {coordinate:[81.26027695,43.86363653],num:24},
+        {coordinate:[100.853228,22.33596759],num:24},
+        {coordinate:[100.778986,18.78377797],num:19},
+        {coordinate:[128.3209921,47.53589917],num:23},
+        {coordinate:[89.51514067,43.36680088],num:18},
+        {coordinate:[82.4929697,43.86263504],num:16},
+        {coordinate:[125.1749262,48.48988459],num:18},
+        {coordinate:[98.41180274,39.75961042],num:14},
+        {coordinate:[124.2819601,40.42638536],num:18},
+        {coordinate:[97.45945805,40.10748238],num:11},
+        {coordinate:[107.9803358,40.94300909],num:17},
+        {coordinate:[127.8740933,43.61842629],num:24},
+        {coordinate:[84.87382462,45.62847489],num:14},
+        {coordinate:[120.0814348,49.25587352],num:14},
+        {coordinate:[122.4335411,45.69929796],num:17},
+        {coordinate:[129.5161512,42.9120338],num:16},
+        {coordinate:[124.2727691,52.04254896],num:14},
+        {coordinate:[76.01906074,39.37862455],num:11},
+        {coordinate:[129.3275106,46.16002586],num:16},
+        {coordinate:[122.0405029,43.66435341],num:12},
+        {coordinate:[100.7777241,38.81297504],num:10},
+        {coordinate:[92.70166675,35.58097229],num:10},
+        {coordinate:[98.21032977,24.53910483],num:10},
+        {coordinate:[83.35835542,43.51569815],num:10},
+        {coordinate:[91.15699177,29.66161809],num:9},
+        {coordinate:[76.89210044,38.5377552],num:9},
+        {coordinate:[83.22228102,46.5799345],num:8},
+        {coordinate:[87.9199577,47.66711026],num:8},
+        {coordinate:[99.97329558,26.69052106],num:8},
+        {coordinate:[83.12038981,41.53116037],num:7},
+        {coordinate:[123.5235912,50.55447383],num:8},
+        {coordinate:[96.33439247,35.92467648],num:6},
+        {coordinate:[93.52487264,42.63920536],num:5},
+        {coordinate:[87.3069861,42.3790345],num:5},
+        {coordinate:[114.525898,43.57929098],num:5},
+        {coordinate:[94.51282663,40.17609671],num:5},
+        {coordinate:[82.06441594,41.63508167],num:5},
+        {coordinate:[123.2390828,44.37307944],num:9},
+        {coordinate:[100.3163456,35.75132716],num:4},
+        {coordinate:[127.4763585,50.0403531],num:5},
+        {coordinate:[117.4726133,49.58718333],num:3},
+        {coordinate:[94.90707144,36.40608608],num:3},
+        {coordinate:[101.593864,34.29116716],num:3},
+        {coordinate:[90.48729481,42.51401637],num:3},
+        {coordinate:[121.1233764,44.62209453],num:5},
+        {coordinate:[96.98136841,32.76146791],num:3},
+        {coordinate:[97.35046289,37.37540246],num:3},
+        {coordinate:[121.5006348,50.95182945],num:3},
+        {coordinate:[88.95606277,29.26816003],num:2},
+        {coordinate:[79.61540117,37.16047485],num:2},
+        {coordinate:[121.7967051,24.03548636],num:2},
+        {coordinate:[105.0382468,39.5478064],num:2},
+        {coordinate:[95.78203439,40.54470276],num:2},
+        {coordinate:[122.8515752,52.9256882],num:2},
+        {coordinate:[79.02878018,39.80037588],num:2},
+        {coordinate:[74.92154405,39.8345794],num:2},
+        {coordinate:[95.36239626,37.8609342],num:2},
+        {coordinate:[121.683201,49.1287305],num:4},
+        {coordinate:[86.42081178,48.06247873],num:2},
+        {coordinate:[119.8292492,47.29482772],num:1},
+        {coordinate:[95.39448923,30.20780685],num:1},
+        {coordinate:[99.72552719,28.36797847],num:2},
+        {coordinate:[100.2850158,31.64964358],num:12},
+        {coordinate:[107.96919,39.09182],num:6},
+        {coordinate:[126.6618639,51.74155727],num:1},
+        {coordinate:[99.11541273,30.01468196],num:1},
+        {coordinate:[7.313090005,46.14867005],num:1},
+        {coordinate:[85.50636564,38.10070942],num:1},
+        {coordinate:[93.02926275,43.75611831],num:1},
+        {coordinate:[107.40002,37.779865],num:2},
+        {coordinate:[134.4257829,48.01708094],num:4},
+        {coordinate:[110.2861887,41.94350715],num:3},
+        {coordinate:[101.7069372,32.91119105],num:3},
+        {coordinate:[98.96748095,32.05940855],num:1},
+        {coordinate:[128.47816,49.566715],num:1},
+        {coordinate:[89.76277231,38.97384409],num:1},
+        {coordinate:[130.45941,48.604992],num:3},
+        {coordinate:[99.71126292,38.32794894],num:1},
+        {coordinate:[102.786885,39.4285965],num:1},
+        {coordinate:[97.18558158,31.14057563],num:1},
+        {coordinate:[130.1593674,33.21602678],num:1},
+        {coordinate:[121.536887,25.13437758],num:1}
+    ];
+
+    /*map.getView().on('change:resolution', function () {
+        for (var i=0;i<dateMap.length;i++) {
+            addRandomFeature(dateMap[i].coordinate, dateMap[i].num/1976*60*(map.getView().getZoom()/4.5));
+        }
+    });*/
+
+    for (var i=0;i<dateMap.length;i++) {
+        var value = dateMap[i].num;
+        var radius = Math.log10(value)*20;
+        console.log(radius);
+        addRandomFeature(dateMap[i].coordinate, radius);
+    }
+</script>
+</html>

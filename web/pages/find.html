@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>矢量地图文档显示</title>
+    <script src="../libs/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <link href="../libs/lib/ol.css" rel="stylesheet" type="text/css" />
+    <script src="../libs/lib/ol-debug.js" type="text/javascript"></script>
+    <script src="../libs/lib/zondyClient.js" type="text/javascript"></script>
+    <script src="../libs/lib/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../libs/js/heatmap.js" type="text/javascript"></script>
+    <script src="../libs/js/map_utils.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //var map;
+
+        var gdb = "gdbp://MapGisLocal/示例数据/sfcls/latlng_without_photo.txt;";
+        var mapName = "latlng_without_photo";
+        query(gdb, mapName, 14000, querySuccess, queryError);
+
+
+        //查询失败回调
+        function queryError(e) {
+            //停止进度条
+            window.alert(e)
+        }
+
+        //查询成功回调
+        function querySuccess(result) {
+            var formatData = JSON.stringify(result);
+            window.alert(formatData);
+        }
+    </script>
+</head>
+<body onload="init()">
+<div id="findDiv">
+    <input id="inputOID" value=""><button id="find" onclick="queryByAttributte()">查询</button>
+</div>
+<div id="resultShow" style="position: absolute;width: 200px ;height: 200px ;z-index: 999;border:1px solid #F00;">
+    <div id="resultT" title="结果显示">
+        <div id="reslutTable">
+        </div>
+    </div>
+</div>
+<div id="mapCon" style="position: absolute; width: 100%; height: 100%;">
+</div>
+</body>
+
+</html>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="../libs/lib/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <link href="../libs/lib/ol.css" rel="stylesheet" type="text/css" />
+        <script src="../libs/lib/ol-debug.js" type="text/javascript"></script>
+    <script src="../libs/lib/zondyClient.js" type="text/javascript"></script>
+    <script src="../libs/js/map_utils.js" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+    var map = null;
+    var vectorLayer_new = null;
+    function onit() {
+        //创建一个图层
+         vectorLayer_new = new Zondy.Map.Layer("武汉市易失路段", ["gdbp://MapGisLocal/GoHome/sfcls/roads_for_easy_to_lose.wl"], {
+            ip: "localhost",
+            port: "6163",
+            isBaseLayer: true
+        });
+        var view = new ol.View({
+            //地图初始中心点
+            center: [114.2874,30.5597],
+            //地图初始显示级别
+            zoom: 14,
+            projection: new ol.proj.get('EPSG:4326')
+        });
+        map = new ol.Map({
+            layers: [
+                vectorLayer_new
+            ],
+            target: "mapCon",
+            view: view
+        });
+    }
+
+    /*-----------------------------------还原显示---------------------------------------*/
+    //提交图层样式回调函数
+    function LayerSubmit() {
+        console.log("还原显示");
+        //进行还原显示
+        var layerSymbleShow = "true";
+        //点状符号大小不固定
+        var layerPntSizeFixed = "false";
+        //线状符号大小不固定
+        var layerLinSizeFixed = "false";
+        //注记符号大小不固定
+        var layerAnnSizeFixed = "false";
+        //图象质量
+        var layerDriverQuality = "2";
+        //不显示坐标点
+        var layerShowCoordPnt = "false";
+        //不显示外包矩形
+        var layerShowElemRect = "false";
+
+
+        var layerDispStyle= SetCDisplayStyle(layerAnnSizeFixed, layerDriverQuality, layerLinSizeFixed,
+            layerPntSizeFixed, layerShowCoordPnt, layerShowElemRect, layerSymbleShow, 0);
+        vectorLayer_new.style = [layerDispStyle];
+        // map.removeLayer(vectorLayer);
+        // map.addLayer(vectorLayer);
+        vectorLayer_new.refresh();
+
+    }
+    //设置提交图层样式
+    function SetCDisplayStyle(layerAnnSizeFixed, layerDriverQuality, layerLinSizeFixed,
+                              layerPntSizeFixed, layerShowCoordPnt, layerShowElemRect,
+                              layerSymbleShow, Index) {
+        return new Zondy.Object.CDisplayStyleExtend({
+            //注记符号大小固定
+            AnnSizeFixed: layerAnnSizeFixed,
+            //图像质量
+            DriverQuality: layerDriverQuality,
+            //线状符号大小固定
+            LinSizeFixed: layerLinSizeFixed,
+            //点状符号大小固定
+            PntSizeFixed: layerPntSizeFixed,
+            //显示坐标点
+            ShowCoordPnt: layerShowCoordPnt,
+            //显示元素的外包矩形
+            ShowElemRect: layerShowElemRect,
+            //是否进行还原显示
+            SymbleShow: layerSymbleShow,
+            //图层索引
+            Index: Index
+        });
+    }
+    /*---------------------------------------------关闭还原显示----------------------------------------------------*/
+
+    //清除图层样式回调函数
+    function LayerClear() {
+        var docDispStyle = new Zondy.Object.CDisplayStyleExtend();
+        vectorLayer_new.style = [docDispStyle];
+        vectorLayer_new.refresh();
+    }
+
+</script>
+<body onload="onit()">
+<button onclick="LayerSubmit()">还原显示</button>
+<button onclick="LayerClear()">关闭</button>
+<div id="mapCon" style=" width: 100%; height: 100%; position: absolute;"></div>
+
+</body>
+</html>
